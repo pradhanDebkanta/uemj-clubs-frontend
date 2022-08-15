@@ -1,0 +1,12 @@
+.logoBox {
+    margin-bottom: -12px;
+    margin-top: -12px;
+    display: flex;
+}
+
+@media (max-width: 48em) {
+    .logoBox {
+        margin-bottom: -26px;
+        margin-top: -26px;
+    }
+}
