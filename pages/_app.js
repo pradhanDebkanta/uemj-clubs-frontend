@@ -1,9 +1,15 @@
 import { NextUIProvider, createTheme } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import Navbar from '../components/Navbar';
-
+import dynamic from 'next/dynamic';
 import '../assets/styles/globals.css';
+
+const Navbar = dynamic(() => import('../components/Navbar'), {
+  ssr: false
+})
+
+
+
 
 // for next-ui provide 
 const lightTheme = createTheme({

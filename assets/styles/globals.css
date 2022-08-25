@@ -19,12 +19,24 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: #16181A;
   }
 }
 
-:root[data-theme=dark]{
+:root[data-theme=dark] {
   --chakra-colors-chakra-body-bg: #000000 !important;
+}
+
+*:focus {
+  box-shadow: none !important;
+  z-index: 0 !important;
+}
+
+*[data-focus] {
+  box-shadow: none !important;
+  z-index: 0 !important;
+
 }

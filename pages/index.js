@@ -1,19 +1,15 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
+import { CodestaSvg } from '../utils/svg/Codesta';
+
+
+
+
 
 
 export default function Home() {
- 
 
-  const [open, setIsOpen] = useState(false);
-
-  const handleClick = () => {
-    console.log(open, "isopen");
-
-    setIsOpen(!open);
-  };
-
-  // console.log(colorMode, "coll", toggleColorMode);
   return (
     <div className="">
       <Head>
@@ -23,21 +19,13 @@ export default function Home() {
       </Head>
       <header>
         Home page
-
-        <div>
-          The current theme is: 
-          
-        </div>
-
       </header>
 
       <main>
         <div>
-          {/* <UserProfile /> */}
+          {/* <CodestaSvg /> */}
         </div>
-        <div>
-         
-        </div>
+
       </main>
     </div>
   )

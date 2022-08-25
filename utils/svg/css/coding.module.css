@@ -1,0 +1,192 @@
+.svgContainer {
+    border-radius: 8px;
+    height: 400px;
+    width: auto;
+}
+
+.svg {
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+}
+
+#leftBracket path,
+#rightCode path {
+    animation: leftGlow 2s infinite alternate;
+}
+
+#leftCode path,
+#rightBracket path {
+    animation: rightGlow 2s infinite alternate;
+}
+
+#slash path {
+    animation: glow 2s infinite alternate;
+}
+
+#leftEye path,
+#rightEye path {
+    animation: zoomIn 2s infinite alternate;
+}
+
+#mouth path {
+    animation: rubber 2s ease-in infinite alternate;
+}
+
+#leftFoot path,
+#rightFoot path {
+    /* animation: move 2s infinite alternate; */
+    fill: #C8B6E2;
+
+}
+
+#base {
+    fill: transparent;
+}
+
+#rightArm path,
+#rightHand path {
+    animation: move 2s infinite alternate;
+}
+
+#leftHand path {
+    animation: moveLittle 2s infinite alternate;
+}
+
+#laptopBlezer path {
+    animation: glowBright 2s infinite alternate;
+}
+
+@keyframes leftGlow {
+    0% {
+        fill: #fff;
+    }
+
+    25% {
+        fill: #72FFFF;
+    }
+
+    50% {
+        fill: #00D7FF;
+    }
+
+    75% {
+        fill: #0096FF;
+    }
+
+    100% {
+        fill: #5800FF;
+    }
+
+}
+
+@keyframes rightGlow {
+    100% {
+        fill: #fff;
+    }
+
+    75% {
+        fill: #72FFFF;
+    }
+
+    50% {
+        fill: #00D7FF;
+    }
+
+    25% {
+        fill: #0096FF;
+    }
+
+    0% {
+        fill: #5800FF;
+    }
+
+}
+
+@keyframes glow {
+    0% {
+        fill: #EAE509;
+    }
+
+    100% {
+        fill: #EED180;
+    }
+}
+
+@keyframes glowBright {
+    0% {
+        fill: #A66CFF;
+    }
+
+    100% {
+        fill: #FF0063;
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        transform: scale(1.02, 1.04);
+    }
+
+    100% {
+        transform: scale(1, 1.07);
+    }
+
+}
+
+@keyframes rubber {
+    0% {
+        transform: skewX(0deg);
+    }
+
+    50% {
+        transform: skewX(2deg);
+    }
+
+    100% {
+        transform: skewX(-2deg);
+    }
+}
+
+@keyframes move {
+    0% {
+        /* transform: skewY(0deg); */
+        transform: skew(0deg, 0deg);
+    }
+
+    50% {
+        /* transform: skewY(2deg); */
+        transform: skew(1deg, 2deg);
+
+    }
+
+    100% {
+        /* transform: skewY(-2deg); */
+        transform: skew(2deg, -2deg)
+    }
+}
+
+@keyframes moveLittle {
+    0% {
+        transform: skewY(0deg);
+    }
+
+    50% {
+        transform: skewY(1deg);
+    }
+
+    100% {
+        transform: skewY(1.5deg);
+    }
+}
+
+
+@media screen and (max-width: 650px) {
+    .svgContainer {
+        height: auto;
+    }
+}

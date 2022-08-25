@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head'
-
+import CodestaLatestActivity from '../../components/latest-activity/codesta';
 
 const Codesta = () => {
     return (
@@ -11,8 +11,7 @@ const Codesta = () => {
                 <link rel="icon" href="/images/codesta.png" />
             </Head>
             <div>
-
-                Codesta latest activity
+                <CodestaLatestActivity />
             </div>
         </div>
     )

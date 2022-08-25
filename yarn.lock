@@ -3218,6 +3218,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+react-auto-typing@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-auto-typing/-/react-auto-typing-1.0.0.tgz#5b36da0690e22c9eb1e6d6f608e8ffd54fd275a2"
+  integrity sha512-Q6X0BpG7WB4+/MXEsykT/Jc32B98QRiDr128kZcPWTpbqdrjjBvVSFm1DWasTSkO8Jh8X1MNlQmgG1hTLpRU7Q==
+
 react-clientside-effect@^1.2.6:
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/react-clientside-effect/-/react-clientside-effect-1.2.6.tgz#29f9b14e944a376b03fb650eed2a754dd128ea3a"

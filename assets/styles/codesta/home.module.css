@@ -1,0 +1,29 @@
+.container {
+    padding-top: 0px;
+    padding-bottom: 1rem;
+}
+.pContainer{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.textContainer {
+    padding: 2rem 0.5rem;
+}
+
+.svg {
+    padding: 1rem;
+}
+
+
+@media screen and (max-width: 650px) {
+    .responsiveText {
+        font-size: 32px !important;
+    }
+    .text{
+        font-size: 15px !important;
+    }
+    .pContainer{
+        padding-top: 1rem;
+    }
+}

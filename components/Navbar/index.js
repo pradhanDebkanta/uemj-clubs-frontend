@@ -1,31 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import NextLink from 'next/link';
 import dynamic from 'next/dynamic'
 
 import {
   Box,
   Flex,
-  Avatar,
-  HStack,
-  Link,
   IconButton,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   useBreakpointValue,
   Stack,
   Collapse,
-  Text,
   useColorMode,
 } from '@chakra-ui/react';
 import { Button as NextButton, Switch, useTheme, } from '@nextui-org/react';
 import { useTheme as useNextTheme } from 'next-themes'
 
-import { RiCloseLine, RiMenuLine, RiArrowRightSLine, RiArrowDownSLine } from 'react-icons/ri';
+import { RiCloseLine, RiMenuLine, } from 'react-icons/ri';
 
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
@@ -39,14 +30,44 @@ const { UserIcon, SunIcon, MoonIcon } = MyIcon
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-  const [isLogin, setLogin] = useState(true);
+  const [isLogin, setLogin] = useState(false);
 
   const { colorMode, toggleColorMode } = useColorMode();
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
-  
+
+  const [offsetY, setOffsetY] = useState(0);
+  const [dynamoStyle, setDynamoStyle] = useState({});
+
+  const scrolling = useCallback(e => {
+    let currScroll = e.currentTarget.scrollY;
+
+    // console.log(currScroll, 'scrolling',offsetY);
+    if (offsetY > currScroll) {
+      // console.log('scroll up');
+      setDynamoStyle({
+        position: 'sticky',
+        top: 0,
+        zIndex: 999,
+      })
+    } else {
+      // console.log('scroll down');
+      setDynamoStyle({})
+    }
+    setOffsetY(currScroll);
+
+  }, [offsetY]);
+
+  useEffect(() => {
+
+    window?.addEventListener('scroll', scrolling, { passive: true })
+
+    return () => window?.removeEventListener('scroll', scrolling)
+  }, [offsetY])
+
   return (
     <Box
+      style={dynamoStyle}
       boxShadow={isDark ? 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset' : 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px'}
     >
       <Flex

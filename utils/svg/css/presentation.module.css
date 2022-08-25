@@ -1,0 +1,17 @@
+.svgContainer {
+    border-radius: 8px;
+    height: 400px;
+    width: auto;
+}
+
+.svg {
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+}
+
+@media screen and (max-width: 650px) {
+    .svgContainer {
+        height: auto;
+    }
+}

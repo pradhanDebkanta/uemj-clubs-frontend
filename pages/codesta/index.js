@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head'
+import Codesta from '../../components/codesta';
 
 
 const index = () => {
@@ -11,7 +12,7 @@ const index = () => {
         <link rel="icon" href="/images/codesta.png" />
       </Head>
       <div>
-        coding club
+        <Codesta />
       </div>
     </div>
   )
