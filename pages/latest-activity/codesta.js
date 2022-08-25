@@ -8,7 +8,7 @@ const Codesta = () => {
             <Head>
                 <title>UEM CODESTA&lsquo;S LATEST ACTIVITY</title>
                 <meta name="description" content="UEMJ create Coding Club, Nature Club" />
-                <link rel="icon" href="/images/codesta.png" />
+                <link rel="icon" href="/images/codestaBlack.png" />
             </Head>
             <div>
                 <CodestaLatestActivity />

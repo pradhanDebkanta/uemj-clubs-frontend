@@ -15,7 +15,7 @@ export default function Home() {
       <Head>
         <title>UEMJ CLUBS</title>
         <meta name="description" content="UEMJ create Coding Club, Nature Club" />
-        <link rel="icon" href="/images/uemLogo.svg" />
+        <link rel="icon" href="/images/uemLight.png" />
       </Head>
       <header>
         Home page

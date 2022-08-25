@@ -1,12 +1,17 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { useTheme } from '@nextui-org/react';
 import Image from 'next/image';
-import codesta from '../../assets/images/codesta.png'
-import uemLogo from '../../assets/images/uemLogo.jpeg'
+import codestaBlack from '../../assets/images/codestaBlack.png'
+import codestaWhite from '../../assets/images/codestaWhite.png'
+import uemDark from '../../assets/images/uemDark.png'
+import uemLight from '../../assets/images/uemLight.png'
 import logo from '../../assets/styles/Navbar.module.css';
 
 const Logo = () => {
     const router = useRouter();
+    const { isDark } = useTheme();
+
     // console.log(router, "route")
     return (
         <>
@@ -14,18 +19,18 @@ const Logo = () => {
                 {
                     (router.asPath === '/codesta' || router.asPath === "/features/codesta" || router.asPath === "/latest-activity/codesta") ? (
                         <Image
-                            src={codesta}
+                            src={isDark ? codestaBlack : codestaWhite}
                             alt='codesta logo'
-                            height={40}
-                            width={60}
+                            height={50}
+                            width={80}
                         // layout='responsive'
                         />
                     ) : (
                         <Image
-                            src={uemLogo}
+                            src={isDark ? uemLight : uemDark}
                             alt='codesta logo'
                             height={40}
-                            width={60}
+                            width={80}
                         // layout='responsive'
                         />
                     )
