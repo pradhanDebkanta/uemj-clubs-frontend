@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { memo } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from "next/router";
 import { Stack, Flex, Text, Icon, Collapse, Link, useDisclosure, useColorModeValue, border } from '@chakra-ui/react';
@@ -6,7 +6,7 @@ import { Stack, Flex, Text, Icon, Collapse, Link, useDisclosure, useColorModeVal
 import { RiArrowDownSLine } from 'react-icons/ri';
 
 
-const MobileNavItem = ({ label, children, href, parent }) => {
+const MobileNavItem = ({ label, children, href, parent, onSelectNavClose }) => {
   const { isOpen, onToggle } = useDisclosure();
   const linkColor = useColorModeValue('gray.600', 'gray.200');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
@@ -25,7 +25,13 @@ const MobileNavItem = ({ label, children, href, parent }) => {
     }
   };
 
-  // console.log(parent, 'parent');
+  // console.log('mobile nav item');
+
+  const closeNavToggle = () => {
+    // console.log('child toggle call');
+    onSelectNavClose();
+    onToggle();
+  }
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -43,6 +49,10 @@ const MobileNavItem = ({ label, children, href, parent }) => {
 
                 }}
               color={router.asPath === href ? '#7828C8' : linkColor}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeNavToggle();
+              }}
             >
               {label}
             </Link>
@@ -103,6 +113,10 @@ const MobileNavItem = ({ label, children, href, parent }) => {
 
                         }}
                       color={router.asPath === child.href ? '#7828C8' : linkColor}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        closeNavToggle();
+                      }}
                     >
                       {child.label}
                     </Link>
@@ -116,4 +130,4 @@ const MobileNavItem = ({ label, children, href, parent }) => {
   );
 };
 
-export default MobileNavItem
+export default memo(MobileNavItem)

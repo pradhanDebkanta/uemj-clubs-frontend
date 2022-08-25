@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import NextLink from 'next/link';
-import { Text, Spacer, Row, Col, Card, useTheme, Grid, Link } from '@nextui-org/react';
+import { Text, Spacer, Row, Col, Card, useTheme, Grid, Link, Button, Tooltip } from '@nextui-org/react';
 import {
     Divider,
     List,
@@ -51,22 +51,55 @@ const Rules = () => {
     const iconColor = isDark ? '#FF2EC4' : '#17C964';
     const headerColor = isDark ? "45deg, $purple600 -20%, $pink600 100%" : "-20deg, #b721ff 0%, #21d4fd 100%";
 
+    const [size, setSize] = useState(window?.innerWidth);
+    const [isMore, setMore] = useState(false);
+
+    useLayoutEffect(() => {
+        // 768px
+        const resizeObserver = () => {
+            let size = window?.innerWidth;
+            setSize(size);
+        }
+        window?.addEventListener('resize', resizeObserver, { passive: true });
+        return () => window?.removeEventListener('resize', resizeObserver);
+    }, []);
+
+
     const allRules = useCallback(() => {
+        const allItem = (
+            rulesDetails?.slice(0, 3)?.map((item, idx) => {
+                return (
+                    <ListItem key={idx} >
+                        <Text size={16} className={home.text} >
+                            <ListIcon as={item.Icon} color={iconColor} size={18} />
+                            {item.detail}
+                        </Text>
+                    </ListItem>
+                )
+            })
+        );
+
+        const fewItem = (
+            rulesDetails?.map((item, idx) => {
+                return (
+                    <ListItem key={idx} >
+                        <Text size={16} className={home.text} >
+                            <ListIcon as={item.Icon} color={iconColor} size={18} />
+                            {item.detail}
+                        </Text>
+                    </ListItem>
+                )
+            })
+        );
+
+
         return (
             <>
-                {rulesDetails?.map((item, idx) => {
-                    return (
-                        <ListItem key={idx} >
-                            <Text size={16} className={home.text} >
-                                <ListIcon as={item.Icon} color={iconColor} size={18} />
-                                {item.detail}
-                            </Text>
-                        </ListItem>
-                    )
-                })}
+                {size <= 768 ? isMore ? fewItem : allItem : allItem}
             </>
-        )
-    }, [iconColor])
+        );
+
+    }, [iconColor, size, isMore])
 
     return (
         <div className={home.pContainer}>
@@ -103,13 +136,25 @@ const Rules = () => {
                             <Spacer y={0.5} />
 
                             <Grid.Container>
+                                {size <= 768 && (
+                                    <Grid css={{ margin: 'auto' }}>
+                                        <Tooltip
+                                            content={isMore ? "click to view less" : "click to view more"}
+                                            contentColor='secondary'
+                                        >
+                                            <Button color="secondary" auto rounded flat onClick={() => { setMore(more => !more) }}>
+                                                {isMore ? "Read less..." : "Read more..."}
+                                            </Button>
+                                        </Tooltip>
+                                    </Grid>
+                                )}
                                 <Grid css={{ margin: 'auto' }}>
                                     <NextLink href="#" >
                                         <Link block color="secondary" href='./pdf/CodingClubREGULATIONS.pdf'
                                             rel="noopener noreferrer"
                                             target={'_blank'}
                                         >
-                                            Read more...
+                                            Read all Rules &#38; Regulations
                                         </Link>
                                     </NextLink>
                                 </Grid>

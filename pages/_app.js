@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { NextUIProvider, createTheme } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
@@ -15,6 +16,9 @@ const Navbar = dynamic(() => import('../components/Navbar'), {
 const lightTheme = createTheme({
   type: 'light',
   theme: {
+    colors: {
+      background: '#fff'
+    }
   },
 });
 
@@ -31,7 +35,7 @@ const darkTheme = createTheme({
 const custom = {
   config: {
     cssVarPrefix: "dk",
-    initialColorMode: "system",
+    initialColorMode: "dark",
     useSystemColorMode: true,
   },
 
@@ -40,6 +44,16 @@ const custom = {
 export const theme = extendTheme({ ...custom });
 
 function MyApp({ Component, pageProps }) {
+
+  useEffect(() => {
+    let mode = process.env.NODE_ENV;
+    if (mode === 'production') {
+      console.log = () => { }
+      console.warn = () => { }
+    }
+    console.warn = () => { }
+  }, [])
+
   return (
     <NextThemesProvider
       defaultTheme="system"

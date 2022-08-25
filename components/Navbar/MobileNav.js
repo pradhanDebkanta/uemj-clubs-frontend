@@ -1,19 +1,23 @@
-import React from "react";
+import React, { memo } from "react";
 import { Stack, useColorModeValue } from "@chakra-ui/react";
 import MobileNavItem from "./MobileNavItem";
 import { NavItems } from "./NavItems";
 
-const MobileNav = () => {
+const MobileNav = ({ onSelectNavClose }) => {
   return (
     <Stack
       bg={useColorModeValue('white', 'gray.800')}
       p={4}
       display={{ md: 'none' }}>
       {NavItems?.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
+        <MobileNavItem
+          key={navItem.label}
+          {...navItem}
+          onSelectNavClose={onSelectNavClose}
+        />
       ))}
     </Stack>
   );
 };
 
-export default MobileNav;
+export default memo(MobileNav);
