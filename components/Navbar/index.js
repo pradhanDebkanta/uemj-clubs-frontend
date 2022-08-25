@@ -134,7 +134,7 @@ export default function Navbar() {
             }}
           />
 
-          {isLogin ? (
+          {/* {isLogin ? (
             <div>
               <UserProfile />
             </div>
@@ -150,7 +150,7 @@ export default function Navbar() {
                 Sign In
               </NextButton>
             </NextLink>
-          )}
+          )} */}
         </Stack>
       </Flex>
       <Collapse in={isOpen} animateOpacity>
