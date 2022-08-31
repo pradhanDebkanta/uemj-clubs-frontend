@@ -4,6 +4,7 @@ import { Container, Spacer } from '@nextui-org/react';
 import Header from './Header';
 import Facility from './Facility';
 import Objectives from './Objectives';
+import Footer from '../footer';
 
 const Rules = dynamic(() => import('./Rules'), {
     ssr: false
@@ -21,7 +22,8 @@ const Codesta = () => {
             <Facility />
             <Objectives />
             <Teams />
-            <Spacer y={3} />
+            <Footer />
+            <Spacer y={0.5} />
         </Container>
     )
 }

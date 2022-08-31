@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { Text, Spacer, useTheme, Grid, Card, Avatar, Button, } from '@nextui-org/react';
+import { Text, Spacer, useTheme, Grid, Card, Avatar, Button, Tooltip } from '@nextui-org/react';
 import Carousel from 'react-elastic-carousel';
 import home from '../../assets/styles/codesta/home.module.css';
 import MyIcon from '../../utils/icon';
@@ -26,31 +26,32 @@ const members = [
         name: 'Sovan Mondal',
         email: 'sovanmondal182@gmail.com',
         designation: 'President',
-        profileImg: 'https://lh3.googleusercontent.com/a-/AFdZucrSU4PwNUTb5zJGmELf0yQNixnYK91-NFSCJ2RdhQ=s64-p-k-rw-no',
-    },
-    {
-        name: 'Debkanta Pradhan',
-        email: 'debkantapradhan2000@gmail.com',
-        designation: 'Vice President',
-        // profileImg: 'https://lh3.googleusercontent.com/a-/AFdZucoyqTU-IVduGftOtpckEtQML6Fp38Vo2o8aOOcPpzI=s360-p-rw-no',
+        // profileImg: 'https://lh3.googleusercontent.com/a-/AFdZucrSU4PwNUTb5zJGmELf0yQNixnYK91-NFSCJ2RdhQ=s64-p-k-rw-no',
         profileImg: '',
     },
+    // {
+    //     name: 'Debkanta Pradhan',
+    //     email: 'debkantapradhan2000@gmail.com',
+    //     designation: 'Vice President',
+    //     // profileImg: 'https://lh3.googleusercontent.com/a-/AFdZucoyqTU-IVduGftOtpckEtQML6Fp38Vo2o8aOOcPpzI=s360-p-rw-no',
+    //     profileImg: '',
+    // },
     {
         name: 'Souradeep Ash',
         email: '',
-        designation: 'Vice President',
+        designation: 'Co-ordinator',
         profileImg: '',
     },
     {
         name: 'Nitin Roy',
         email: '',
-        designation: 'Secretary',
+        designation: 'Co-ordinator',
         profileImg: '',
     },
     {
         name: 'Subham Gourisaria',
         email: '',
-        designation: 'Event Manager',
+        designation: 'Co-ordinator',
         profileImg: '',
     },
 ]
@@ -156,12 +157,14 @@ const Teams = () => {
                                                             textGradient: textColor
                                                         }}
                                                         b
-                                                        size={18}
+                                                        size={size > 525 ? 18 : 16}
                                                     >
                                                         Name:
                                                     </Text>
                                                     <Spacer x={1} />
-                                                    <Text i>{item.name}</Text>
+                                                    <Text i
+                                                        size={size > 525 ? 16 : 14}
+                                                    >{item.name}</Text>
                                                 </Grid>
                                                 <Grid xs={12} justify="center">
                                                     <IconContext.Provider value={{ color: '#A66CFF', style: { marginRight: 4, marginTop: 4 } }} size={16}>
@@ -173,7 +176,7 @@ const Teams = () => {
                                                             textGradient: textColor
                                                         }}
                                                         b
-                                                        size={18}
+                                                        size={size > 525 ? 18 : 16}
                                                     >
                                                         Designation:
                                                     </Text>
@@ -182,7 +185,7 @@ const Teams = () => {
                                                     <Text
                                                         i
                                                         color="secondary"
-
+                                                        size={size > 525 ? 16 : 14}
                                                     >{item.designation}</Text>
                                                 </Grid>
                                                 {item.email && (
@@ -194,13 +197,24 @@ const Teams = () => {
                                                                 textGradient: textColor
                                                             }}
                                                             b
-                                                            size={18}
+                                                            size={size > 525 ? 18 : 16}
                                                         >
                                                             Email:
                                                         </Text>
 
                                                         <Spacer x={1} />
-                                                        <Text i>{item.email}</Text>
+                                                        <Tooltip
+                                                            content={item.email}
+                                                            color='default'
+                                                            contentColor={'secondary'}
+                                                            css={{ fontSize: 14, }}
+                                                            rounded={true}
+                                                            shadow={true}
+                                                        >
+                                                            <Text i
+                                                                size={size > 525 ? 16 : 14}
+                                                            >{item.email.length > 10 ? `${item.email.slice(0, 11)}...@` : item.email}</Text>
+                                                        </Tooltip>
                                                     </Grid>
                                                 )}
                                                 <Spacer y={0.5} />
@@ -208,7 +222,7 @@ const Teams = () => {
                                                     <Button
                                                         color='secondary'
                                                         flat auto
-                                                        icon={<Mail fill='#fff' />}
+                                                        icon={<Mail fill={iconColor} size={16} />}
                                                         onClick={() => onClickmail(item.email)}
                                                     >
                                                         Contact

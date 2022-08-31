@@ -19,7 +19,6 @@
 .carouselBox {
     /* margin-top: 40px; */
     padding-top: 36px;
-    /* padding-bottom: 0px; */
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -75,5 +74,11 @@
 
     .pContainer {
         padding-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .cardBox {
+        padding: 8px 0px;
     }
 }
