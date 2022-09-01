@@ -23,7 +23,8 @@ const Logo = () => {
                             alt='codesta logo'
                             height={50}
                             width={80}
-                        // layout='responsive'
+                            // layout='responsive'
+                            priority={true}
                         />
                     ) : (
                         <Image
@@ -31,7 +32,8 @@ const Logo = () => {
                             alt='codesta logo'
                             height={40}
                             width={80}
-                        // layout='responsive'
+                            // layout='responsive'
+                            priority={true}
                         />
                     )
                 }

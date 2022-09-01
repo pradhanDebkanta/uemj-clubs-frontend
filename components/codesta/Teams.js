@@ -12,45 +12,75 @@ const { Mail, UserIcon } = MyIcon
 const members = [
     {
         name: 'Jyoti Khandelwal',
-        email: '',
+        email: 'jyoti.khandelwal@uem.edu.in',
         designation: 'Faculty Co-ordinator',
         profileImg: '',
     },
     {
         name: 'Subrat Gautam',
-        email: '',
+        email: 'subrat.gautam@uem.edu.in',
         designation: 'Faculty Co-ordinator',
         profileImg: '',
     },
     {
         name: 'Sovan Mondal',
-        email: 'sovanmondal182@gmail.com',
+        email: 'sovan.mondal2019@uem.edu.in',
         designation: 'President',
         // profileImg: 'https://lh3.googleusercontent.com/a-/AFdZucrSU4PwNUTb5zJGmELf0yQNixnYK91-NFSCJ2RdhQ=s64-p-k-rw-no',
         profileImg: '',
     },
-    // {
-    //     name: 'Debkanta Pradhan',
-    //     email: 'debkantapradhan2000@gmail.com',
-    //     designation: 'Vice President',
-    //     // profileImg: 'https://lh3.googleusercontent.com/a-/AFdZucoyqTU-IVduGftOtpckEtQML6Fp38Vo2o8aOOcPpzI=s360-p-rw-no',
-    //     profileImg: '',
-    // },
+    {
+        name: 'Debkanta Pradhan',
+        email: 'debkantapradhan2000@gmail.com',
+        designation: 'Co-ordinator',
+        // profileImg: 'https://lh3.googleusercontent.com/a-/AFdZucoyqTU-IVduGftOtpckEtQML6Fp38Vo2o8aOOcPpzI=s360-p-rw-no',
+        profileImg: '',
+    },
     {
         name: 'Souradeep Ash',
-        email: '',
+        email: 'souradeepraja@gmail.com',
         designation: 'Co-ordinator',
         profileImg: '',
     },
     {
         name: 'Nitin Roy',
-        email: '',
+        email: 'roynitin710@gmail.com',
         designation: 'Co-ordinator',
         profileImg: '',
     },
     {
         name: 'Subham Gourisaria',
-        email: '',
+        email: 'subhamgourisariabnk@gmail.com',
+        designation: 'Co-ordinator',
+        profileImg: '',
+    },
+    {
+        name: 'Yash Yadav',
+        email: 'yash.yadav2020@uem.edu.in',
+        designation: 'Co-ordinator',
+        profileImg: '',
+    },
+    {
+        name: 'Aniket Jain',
+        email: 'aniketjainrch10@gmail.com',
+        designation: 'Co-ordinator',
+        profileImg: '',
+    },
+    {
+        name: 'Ishika Saraf',
+        email: 'ishikasaraf2@gmail.com',
+        designation: 'Co-ordinator',
+        profileImg: '',
+    },
+    {
+        name: 'Rajat Dhanuka',
+        email: 'rajatdhanuka1@gmail.com',
+        designation: 'Co-ordinator',
+        profileImg: '',
+    },
+    {
+        name: 'Tisha Bhattacharya',
+        email: 'tishabhattacharya940@gmail.com',
         designation: 'Co-ordinator',
         profileImg: '',
     },
@@ -223,7 +253,7 @@ const Teams = () => {
                                                         color='secondary'
                                                         flat auto
                                                         icon={<Mail fill={iconColor} size={16} />}
-                                                        onClick={() => onClickmail(item.email)}
+                                                        onPress={() => onClickmail(item.email)}
                                                     >
                                                         Contact
                                                     </Button>

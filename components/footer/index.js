@@ -14,17 +14,17 @@ const Footer = () => {
             <Grid.Container justify='center'>
                 <Grid>
 
-                    <Text i size={16} css={{ textGradient: textColor }}>
+                    <Text i size={16} css={{ textGradient: textColor, display: 'inline' }}>
                         Design by &nbsp;
                     </Text>
 
                     <Link
                         href='https://www.linkedin.com/in/debkanta-pradhan-4b6399193/'
                         target={'_blank'}
-                        css={{ color: nameColor, fontStyle: 'italic' }}
+                        css={{ color: nameColor, fontStyle: 'italic', display: 'inline' }}
                     >
                         @DK
-                        <IconContext.Provider value={{ style: { marginLeft: 2, color: nameColor } }}>
+                        <IconContext.Provider value={{ style: { marginLeft: 3, color: nameColor, display: 'inline' } }}>
                             <CgDesignmodo />
                         </IconContext.Provider>
                     </Link>

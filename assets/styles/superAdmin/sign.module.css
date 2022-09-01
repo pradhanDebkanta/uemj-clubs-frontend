@@ -1,0 +1,18 @@
+.container {
+    margin-top: 1rem;
+}
+
+.formBody {
+    padding: 8px 8px;
+}
+
+.helperBox {
+    position: inherit;
+    bottom: 0;
+}
+
+.helpText {
+    font-size: 12px;
+    color: #F31260;
+    margin-left: 10px;
+}

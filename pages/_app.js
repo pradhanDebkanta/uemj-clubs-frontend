@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextUIProvider, createTheme } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import '../assets/styles/globals.css';
+import { useRouter } from 'next/router';
+import SANavbar from '../components/SuperAdminNavbar';
+import ANavbar from '../components/AdminNavbar';
 
 const Navbar = dynamic(() => import('../components/Navbar'), {
   ssr: false
-})
-
-
+});
 
 
 // for next-ui provide 
@@ -44,6 +45,8 @@ const custom = {
 export const theme = extendTheme({ ...custom });
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  const [activeRoute, setActiveRoute] = useState('')
 
   useEffect(() => {
     let mode = process.env.NODE_ENV;
@@ -53,6 +56,21 @@ function MyApp({ Component, pageProps }) {
     }
     console.warn = () => { }
   }, [])
+
+  useEffect(() => {
+    if (router) {
+      if (router?.pathname?.includes('/super-admin')) {
+        setActiveRoute('super-admin');
+      } else if (router?.pathname.includes('/admin')) {
+        setActiveRoute('admin');
+      } else {
+        setActiveRoute('user');
+      }
+    }
+
+  }, [router]);
+
+
 
   return (
     <NextThemesProvider
@@ -66,7 +84,14 @@ function MyApp({ Component, pageProps }) {
     >
       <NextUIProvider theme={theme}>
         <ChakraProvider >
-          <Navbar />
+          {activeRoute === 'super-admin' ? (
+            <SANavbar />
+          ) : activeRoute === 'admin' ? (
+            <ANavbar />
+          ) : (
+            <Navbar />
+          )}
+
           <Component {...pageProps} />
         </ChakraProvider>
       </NextUIProvider>

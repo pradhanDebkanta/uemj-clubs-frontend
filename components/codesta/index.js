@@ -23,7 +23,6 @@ const Codesta = () => {
             <Objectives />
             <Teams />
             <Footer />
-            <Spacer y={0.5} />
         </Container>
     )
 }

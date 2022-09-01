@@ -40,3 +40,7 @@ a {
   z-index: 0 !important;
 
 }
+
+.nextui-input-helper-text-container {
+  position: initial !important;
+}
