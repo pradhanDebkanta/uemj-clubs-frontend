@@ -1,9 +1,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { Container, Text, useTheme, Spacer, Grid } from '@nextui-org/react';
-import sign from '../../../assets/styles/superAdmin/sign.module.css';
-import home from '../../../assets/styles/codesta/home.module.css';
-import MobileLogin from '../../../utils/svg/MobileLogin';
+import sign from '../../../../assets/styles/superAdmin/sign.module.css';
+import home from '../../../../assets/styles/codesta/home.module.css';
+import MobileLogin from '../../../../utils/svg/MobileLogin';
 
 const SignUpForm = dynamic(() => import('./SignUpForm'), {
     ssr: false,
@@ -27,9 +27,9 @@ const SignUp = () => {
                     weight="bold"
                     className={home.responsiveText}
                 >
-                    SignUp
+                    Sign Up
                 </Text>
-                <Spacer y={1} />
+                <Spacer y={1.2} />
                 <Grid.Container gap={1} justify='center'>
                     <Grid sm={6}>
                         <SignUpForm />

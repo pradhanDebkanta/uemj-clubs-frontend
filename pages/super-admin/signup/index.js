@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpComp from '../../../components/superAdmin/SignUp';
+import SignUpComp from '../../../components/Authentication/SuperAdmin/SignUp';
 
 const SignUp = () => {
     return (

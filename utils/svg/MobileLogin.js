@@ -4,7 +4,7 @@ import codingCss from './css/coding.module.css';
 
 const MobileLogin = () => {
     return (
-        <div className={codingCss.svgContainer}>
+        <div className={codingCss.svgBox}>
             <svg className={codingCss.svg} xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 708 555.86743" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <path id="b10fb2cf-c586-4c5f-9fbf-e678f5ffa3db-234" data-name="Path 133" d="M890.46523,679.51478a211.72219,211.72219,0,0,1-46.19649,37.27045c-.39154.24069-.7897.4667-1.18925.70031l-27.639-24.46263c.29035-.26957.61188-.57235.95806-.90494C836.99246,672.563,939.22932,535.83823,946.042,502.54351,945.57186,505.31735,952.18923,614.09419,890.46523,679.51478Z" transform="translate(-246 -172.06628)" fill="#f0f0f0" />
                 <path id="a32c10c7-75df-4179-a648-6a8d2a687209-235" data-name="Path 134" d="M849.6017,721.5053c-.52265.12466-1.0544.24137-1.58764.34772l-20.7355-18.35251c.40524-.14119.87883-.30927,1.42046-.49568,8.89662-3.15026,35.39436-12.66026,61.76413-23.49189,28.33447-11.64369,56.53311-24.79986,62.59765-33.227C951.75986,648.244,911.68646,707.62224,849.6017,721.5053Z" transform="translate(-246 -172.06628)" fill="#f0f0f0" />

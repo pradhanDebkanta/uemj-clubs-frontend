@@ -16,3 +16,37 @@
     color: #F31260;
     margin-left: 10px;
 }
+
+.gAuthBox {
+    width: 100%;
+}
+
+.gAuthBox>button {
+    width: 100% !important;
+    border-radius: 12px !important;
+    justify-content: center;
+    font-size: 16px !important;
+    background-color: var(--nextui-colors-secondaryLight) !important;
+    border-width: 2px !important;
+}
+
+.gAuthBox>button:hover {
+    border-color: #A66CFF !important;
+    transition: all 0.2s ease;
+    transform: translateY(-1px);
+}
+
+.gAuthBox>button>div {
+    border-radius: 12px !important;
+    background-color: var(--nextui-colors-secondaryLight) !important;
+}
+
+.gAuthBox>button>span {
+    color: var(--nextui-colors-secondaryLightContrast) !important;
+}
+
+@media screen and (max-width: 650px) {
+    .responsiveHeader {
+        font-size: 20px !important;
+    }
+}
