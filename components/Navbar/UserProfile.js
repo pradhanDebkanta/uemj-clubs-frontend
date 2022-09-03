@@ -21,7 +21,7 @@ export default function UserProfile() {
         <>
             <Grid.Container>
                 <Grid>
-                    <Dropdown placement="bottom-left" trigger="longPress">
+                    <Dropdown placement="bottom-left" trigger="press">
                         <Dropdown.Trigger >
                             <Avatar
                                 bordered

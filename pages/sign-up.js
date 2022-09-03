@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import SignUpComp from '../components/Authentication/NormalUser/SignUp';
 
 const SignUp = () => {
     return (
-        <div>SignUp</div>
+        <div>
+            <SignUpComp />
+        </div>
     )
 }
 

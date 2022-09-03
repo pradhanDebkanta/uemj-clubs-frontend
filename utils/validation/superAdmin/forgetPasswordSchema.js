@@ -14,10 +14,34 @@ export const resetPasswordSchema = yup.object().shape({
 });
 
 export const otpSchema = yup.object().shape({
-    one: yup.number().required('required.').min(1).max(1).positive('OTP must be positive').integer('OTP must be integer'),
-    two: yup.number().required('required.').min(1).max(1).positive('OTP must be positive').integer('OTP must be integer'),
-    three: yup.number().required('required.').min(1).max(1).positive('OTP must be positive').integer('OTP must be integer'),
-    four: yup.number().required('required.').min(1).max(1).positive('OTP must be positive').integer('OTP must be integer'),
-    five: yup.number().required('required.').min(1).max(1).positive('OTP must be positive').integer('OTP must be integer'),
-    six: yup.number().required('required.').min(1).max(1).positive('OTP must be positive').integer('OTP must be integer'),
+
+    one: yup.number().required('required.').test('Is positive?',
+        'ERROR: The number must be >=0',
+        (value) => value >= 0)
+        .integer('OTP must be integer').transform(value => {
+            return isNaN(value) ? undefined : Number(value)
+        }),
+
+    two: yup.number().required('required.').test('Is positive?',
+        'ERROR: The number must be >=0',
+        (value) => value >= 0)
+        .integer('OTP must be integer').transform(value => isNaN(value) ? undefined : Number(value)),
+
+    three: yup.number().required('required.')
+        .integer('OTP must be integer').transform(value => isNaN(value) ? undefined : Number(value)),
+
+    four: yup.number().required('required.').test('Is positive?',
+        'ERROR: The number must be >=0',
+        (value) => value >= 0)
+        .integer('OTP must be integer').transform(value => isNaN(value) ? undefined : Number(value)),
+
+    five: yup.number().required('required.').test('Is positive?',
+        'ERROR: The number must be >=0',
+        (value) => value >= 0)
+        .integer('OTP must be integer').transform(value => isNaN(value) ? undefined : Number(value)),
+
+    six: yup.number().required('required.').test('Is positive?',
+        'ERROR: The number must be >=0',
+        (value) => value >= 0)
+        .integer('OTP must be integer').transform(value => isNaN(value) ? undefined : Number(value)),
 });

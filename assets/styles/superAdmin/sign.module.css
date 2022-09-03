@@ -45,6 +45,10 @@
     color: var(--nextui-colors-secondaryLightContrast) !important;
 }
 
+.containerBg{
+    background-image: url('../../images/quick-sol.png');
+}
+
 @media screen and (max-width: 650px) {
     .responsiveHeader {
         font-size: 20px !important;
