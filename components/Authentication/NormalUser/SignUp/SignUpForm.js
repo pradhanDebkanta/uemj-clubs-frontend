@@ -56,9 +56,12 @@ const SignUpForm = () => {
     }, [selected]);
 
     useEffect(() => {
-        console.log(selected, 'sec arr');
-
-    }, [selected])
+        let arr = Array.from(selected)
+        formik.setFieldValue('clubName', arr);
+        if (visible) {
+            modalFormik.setFieldValue('clubName', arr);
+        }
+    }, [selected, visible])
 
     const formik = useFormik({
         initialValues: {
@@ -67,7 +70,7 @@ const SignUpForm = () => {
             enrollmentNo: '',
             password: '',
             confirmPassword: '',
-            clubName: '',
+            clubName: [],
         },
         onSubmit: (value) => {
             console.log(value, 'formik');
@@ -79,7 +82,7 @@ const SignUpForm = () => {
         initialValues: {
             enrollmentNo: '',
             tokenId: '',
-            clubName: '',
+            clubName: [],
         },
         onSubmit: value => {
             console.log(value, 'modalformk');
@@ -211,36 +214,6 @@ const SignUpForm = () => {
                             />
                             <Spacer y={1} />
 
-
-                            {/* <Select
-                                placeholder='Select Club Name'
-                                name='clubName'
-                                focusBorderColor={errorColor('clubName', formik) === 'secondary' ? '#A66CFF' : '#F31260'}
-                                borderRadius={12}
-                                borderColor={borderCol}
-                                borderWidth={2}
-                                backgroundColor='transperent'
-                                _hover={{
-                                    transform: 'translateY(-1px)',
-                                    transition: 'all 0.2s ease',
-                                    borderColor: '#A66CFF'
-                                }}
-                                defaultValue={formik.values.clubName}
-                                onChange={formik.handleChange}
-                            >
-                                {
-                                    clubs.map((item, idx) => {
-                                        return (
-                                            <option value={item.value} className={sign.option} key={idx}>{item.name}</option>
-                                        )
-                                    })
-                                }
-                            </Select>
-                            {formik.touched.clubName && formik.errors.clubName && (<div className={sign.helperBox}>
-                                <p className={sign.helpText}>
-                                    {errorText('clubName', formik)}
-                                </p>
-                            </div>)} */}
                             <Dropdown>
                                 <Dropdown.Button
                                     flat color="secondary" css={{ tt: "capitalize" }}
@@ -254,11 +227,7 @@ const SignUpForm = () => {
                                     selectionMode="multiple"
                                     selectedKeys={selected}
                                     onSelectionChange={(e) => {
-                                        console.log(e, 'dkk');
                                         setSelected(e);
-                                    }}
-                                    onAction={(e) => {
-                                        console.log(e, 'oa');
                                     }}
                                 >
                                     {
@@ -270,6 +239,11 @@ const SignUpForm = () => {
                                     }
                                 </Dropdown.Menu>
                             </Dropdown>
+                            {formik.touched.clubName && formik.errors.clubName && (<div className={sign.helperBox}>
+                                <p className={sign.helpText}>
+                                    {errorText('clubName', formik)}
+                                </p>
+                            </div>)}
 
                             <Spacer y={1} />
                             <Grid.Container gap={1} justify='space-around'>
@@ -371,30 +345,31 @@ const SignUpForm = () => {
                             />
                             <Spacer y={1} />
 
-                            <Select
-                                placeholder='Select Club Name'
-                                name='clubName'
-                                focusBorderColor={errorColor('clubName', modalFormik) === 'secondary' ? '#A66CFF' : '#F31260'}
-                                borderRadius={12}
-                                borderColor={borderCol}
-                                borderWidth={2}
-                                backgroundColor='transperent'
-                                _hover={{
-                                    transform: 'translateY(-1px)',
-                                    transition: 'all 0.2s ease',
-                                    borderColor: '#A66CFF'
-                                }}
-                                defaultValue={modalFormik.values.clubName}
-                                onChange={modalFormik.handleChange}
-                            >
-                                {
-                                    clubs.map((item, idx) => {
-                                        return (
-                                            <option value={item.value} className={sign.option} key={idx}>{item.name}</option>
-                                        )
-                                    })
-                                }
-                            </Select>
+                            <Dropdown>
+                                <Dropdown.Button
+                                    flat color="secondary" css={{ tt: "capitalize" }}
+                                >
+                                    {selectedValue}
+                                </Dropdown.Button>
+                                <Dropdown.Menu
+                                    aria-label="Multiple selection actions"
+                                    color="secondary"
+                                    disallowEmptySelection
+                                    selectionMode="multiple"
+                                    selectedKeys={selected}
+                                    onSelectionChange={(e) => {
+                                        setSelected(e);
+                                    }}
+                                >
+                                    {
+                                        clubs.map((item, idx) => {
+                                            return (
+                                                <Dropdown.Item key={item.value}>{item.name}</Dropdown.Item>
+                                            )
+                                        })
+                                    }
+                                </Dropdown.Menu>
+                            </Dropdown>
                             {modalFormik.touched.clubName && modalFormik.errors.clubName && (<div className={sign.helperBox}>
                                 <p className={sign.helpText}>
                                     {errorText('clubName', modalFormik)}
