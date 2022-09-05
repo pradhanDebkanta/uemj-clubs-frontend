@@ -68,6 +68,13 @@ const OtpForm = () => {
 
     }, [formik])
 
+    useEffect(() => {
+        // if (isLastFull) {
+            ref6.current.value = lastValue;
+            // }
+        }, )
+        console.log('dkkkk', ref6);
+
     return (
         <>
             <Card
@@ -102,12 +109,13 @@ const OtpForm = () => {
                                         ref={ref1}
                                         name='one'
                                         value={formik.values.one}
-                                        bordered
+                                        underlined
                                         color={errorColor('one', formik)}
                                         onChange={(e) => {
                                             autoFocus(e.target.value, ref1, ref2);
                                             formik.handleChange(e);
                                         }}
+                                        className={sign.inputText}
                                     />
 
                                 </Col>
@@ -117,12 +125,13 @@ const OtpForm = () => {
                                         ref={ref2}
                                         value={formik.values.two}
                                         name='two'
-                                        bordered
+                                        underlined
                                         color={errorColor('two', formik)}
                                         onChange={(e) => {
                                             autoFocus(e.target.value, ref2, ref3);
                                             formik.handleChange(e);
                                         }}
+                                        className={sign.inputText}
                                     />
                                 </Col>
                                 <Col>
@@ -131,12 +140,14 @@ const OtpForm = () => {
                                         ref={ref3}
                                         value={formik.values.three}
                                         name='three'
-                                        bordered
+                                        underlined
                                         color={errorColor('three', formik)}
                                         onChange={(e) => {
                                             autoFocus(e.target.value, ref3, ref4);
                                             formik.handleChange(e);
                                         }}
+                                        className={sign.inputText}
+
                                     />
                                 </Col>
                                 <Col>
@@ -145,12 +156,14 @@ const OtpForm = () => {
                                         ref={ref4}
                                         value={formik.values.four}
                                         name='four'
-                                        bordered
+                                        underlined
                                         color={errorColor('four', formik)}
                                         onChange={(e) => {
                                             autoFocus(e.target.value, ref4, ref5);
                                             formik.handleChange(e);
                                         }}
+                                        className={sign.inputText}
+
                                     />
                                 </Col>
                                 <Col>
@@ -159,12 +172,13 @@ const OtpForm = () => {
                                         ref={ref5}
                                         value={formik.values.five}
                                         name='five'
-                                        bordered
+                                        underlined
                                         color={errorColor('five', formik)}
                                         onChange={(e) => {
                                             autoFocus(e.target.value, ref5, ref6);
                                             formik.handleChange(e);
                                         }}
+                                        className={sign.inputText}
 
                                     />
                                 </Col>
@@ -172,35 +186,68 @@ const OtpForm = () => {
                                     <Input
                                         type={'number'}
                                         ref={ref6}
-                                        value={isLastFull ? lastValue : formik.values.six}
+                                        // value={isLastFull ? lastValue : formik.values.six}
+                                        value={lastValue}
                                         name='six'
-                                        bordered
+                                        underlined
                                         color={errorColor('six', formik)}
                                         onChange={(e) => {
+                                            console.log(e.target.value, e.target.value.length, 'len', lastValue, ref6.current.value)
                                             if (e.target.value.length <= 1) {
                                                 setLastFull(true);
                                                 setlastValue(e.target.value)
                                                 formik.handleChange(e);
                                             } else {
-                                                setLastFull(false);
-                                                // console.log(e.target.value.slice(0, 1));
-                                                // e.target.value = e.target.value.slice(0, 1);
+                                                // setLastFull(false);
+                                                // ref6.current.value = lastValue;
                                             }
                                         }}
+                                        className={sign.inputText}
+
                                     />
                                 </Col>
-                            </Row>
 
+                            </Row>
+                            <div className={sign.inputErrorBox}>
+                                {
+                                    Object.keys(formik?.touched).length !== 0 && Object.keys(formik.errors).length !== 0 && (
+                                        <Text
+                                            color='error'
+                                            size={14}
+                                        >
+                                            Please Enter valid OTP.
+                                        </Text>
+                                    )
+                                }
+                            </div>
                             <Spacer y={1} />
                             <Grid.Container gap={1} justify='space-evenly'>
                                 <Grid>
                                     <Button color='secondary' flat type='submit'>Confirm OTP</Button>
                                 </Grid>
                                 <Grid>
-                                    <Button color='primary' flat >Resend OTP</Button>
+                                    <Button color='secondary' flat >Resend OTP</Button>
                                 </Grid>
                             </Grid.Container>
                         </form>
+                        {/* <input
+                            type={'number'}
+                            onChange={(e) => {
+                                console.log(e.target.value, '');
+                                if (e.target.value.length <= 1) {
+                                    setlastValue(e.target.value)
+                                }
+                            }}
+                            value={lastValue}
+                        /> */}
+                        {/* <Input
+                            type={'text'}
+                            value={'Something..'}
+                            onChange={(e) => {
+                                console.log(e.target.value);
+                            }}
+                            bordered
+                        /> */}
                     </div>
                 </Card.Body>
             </Card>

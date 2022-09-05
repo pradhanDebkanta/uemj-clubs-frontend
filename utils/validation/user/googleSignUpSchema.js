@@ -6,5 +6,5 @@ export const googleSignUpSchema = yup.object().shape({
         .positive('Enrollment no. must be positive').test('len', 'Enrollment no must be 14 digit.', value => {
             return String(value).length === 14;
         }),
-    clubName: yup.array().of(yup.string().required('Select club name.')).required('Select club name.')
+    clubName: yup.array().of(yup.string()).required('Select club name.').nullable().min(1, 'Choose a club.')
 })

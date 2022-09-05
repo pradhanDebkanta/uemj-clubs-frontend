@@ -51,7 +51,7 @@ const SignUpForm = () => {
         if (Array.from(selected)?.length === 0) {
             return 'Select club'
         } else {
-            return Array.from(selected).join(", ").replaceAll("_", " ");
+            return Array.from(selected).join(", ").replaceAll("_", " ").slice(0, 15) + "...";
         }
     }, [selected]);
 
@@ -216,15 +216,17 @@ const SignUpForm = () => {
 
                             <Dropdown>
                                 <Dropdown.Button
-                                    flat color="secondary" css={{ tt: "capitalize" }}
+                                    flat
+                                    css={{ tt: "capitalize" }}
+                                    color={errorColor('clubName', formik)}
                                 >
                                     {selectedValue}
                                 </Dropdown.Button>
                                 <Dropdown.Menu
                                     aria-label="Multiple selection actions"
-                                    color="secondary"
                                     disallowEmptySelection
                                     selectionMode="multiple"
+                                    color="secondary"
                                     selectedKeys={selected}
                                     onSelectionChange={(e) => {
                                         setSelected(e);
@@ -244,7 +246,6 @@ const SignUpForm = () => {
                                     {errorText('clubName', formik)}
                                 </p>
                             </div>)}
-
                             <Spacer y={1} />
                             <Grid.Container gap={1} justify='space-around'>
                                 <Grid>
@@ -347,7 +348,9 @@ const SignUpForm = () => {
 
                             <Dropdown>
                                 <Dropdown.Button
-                                    flat color="secondary" css={{ tt: "capitalize" }}
+                                    flat
+                                    color={errorColor('clubName', modalFormik)}
+                                    css={{ tt: "capitalize" }}
                                 >
                                     {selectedValue}
                                 </Dropdown.Button>

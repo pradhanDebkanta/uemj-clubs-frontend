@@ -21,7 +21,7 @@ export default function UserProfile() {
         <>
             <Grid.Container>
                 <Grid>
-                    <Dropdown placement="bottom-left" trigger="press">
+                    <Dropdown>
                         <Dropdown.Trigger >
                             <Avatar
                                 bordered
@@ -32,7 +32,13 @@ export default function UserProfile() {
                             // text="D"
                             />
                         </Dropdown.Trigger>
-                        <Dropdown.Menu color="secondary" aria-label="Avatar_Actions" id="Avatar_Actions" onAction={(key) => { handleSelect(key) }}>
+                        <Dropdown.Menu
+                            color="secondary"
+                            aria-label="Avatar_Actions"
+                            id="Avatar_Actions"
+                            onAction={(key) => { handleSelect(key) }}
+                            isVirtualized={true}
+                        >
                             <Dropdown.Item key="profile" css={{ height: "$18" }}
                                 icon={<UserIcon size={22} fill="var(--nextui-colors-secondary)" />}
                             >
@@ -77,7 +83,7 @@ export default function UserProfile() {
 
             {
                 selectKey === 'logout' && (
-                    <Logout isOpen={true} onAction={handleSelect}/>
+                    <Logout isOpen={true} onAction={handleSelect} />
                 )
             }
         </>

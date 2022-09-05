@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import NextLink from 'next/link';
 import dynamic from 'next/dynamic'
 
 import {
@@ -13,18 +12,22 @@ import {
   Collapse,
   useColorMode,
 } from '@chakra-ui/react';
-import { Button as NextButton, Switch, useTheme, } from '@nextui-org/react';
+import { Button as NextButton, Popover, Switch, useTheme, Text, Dropdown } from '@nextui-org/react';
 import { useTheme as useNextTheme } from 'next-themes'
 
-import { RiCloseLine, RiMenuLine, } from 'react-icons/ri';
+import { RiCloseLine, RiMenuLine, RiUser6Line, RiBuilding2Line } from 'react-icons/ri';
+import { TbUsers } from 'react-icons/tb';
+import { IconContext } from 'react-icons';
 
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import MyIcon from '../../utils/icon';
 import Logo from './Logo';
+import { useRouter } from 'next/router';
 
+import UserProfile from './UserProfile';
 
-const UserProfile = dynamic(import('./UserProfile').then(e => e), { ssr: false });
+// const UserProfile = dynamic(import('./UserProfile').then(e => e), { ssr: false });
 
 const { UserIcon, SunIcon, MoonIcon } = MyIcon
 
@@ -50,6 +53,8 @@ export default function Navbar() {
   const [comp, setComp] = useState('');
 
   // console.log("next theme", isDark);
+
+  const router = useRouter();
 
 
   const scrolling = useCallback(e => {
@@ -80,6 +85,15 @@ export default function Navbar() {
     onToggle();
   }, [onToggle]);
 
+  const routerHandler = e => {
+    console.log(e);
+    if (e === 'user')
+      router.push('/sign-in');
+    else if (e === 'admin')
+      router.push('/admin/signin')
+    else
+      router.push('/super-admin/signin');
+  }
 
   useEffect(() => {
     if (JSON.stringify(dynamoStyle) !== JSON.stringify(debounceStyle)) {
@@ -150,7 +164,7 @@ export default function Navbar() {
               shadow
               css={{
                 // marginRight: 12,
-                marginTop: 6
+                marginTop: 4
 
               }}
               onChange={(e) => {
@@ -159,23 +173,64 @@ export default function Navbar() {
               }}
             />
 
-            {/* {isLogin ? (
+            {isLogin ? (
               <div>
                 <UserProfile />
               </div>
             ) : (
-              <NextLink href={'/sign-in'}>
-                <NextButton
-                  icon={<UserIcon fill="currentColor" width={16} />}
-                  color="secondary"
-                  size={'sm'}
-                  flat
-                  auto
+              <>
+                <Dropdown
                 >
-                  Sign In
-                </NextButton>
-              </NextLink>
-            )} */}
+                  <Dropdown.Button
+                    color="secondary"
+                    size={'sm'}
+                    icon={<UserIcon fill="currentColor" width={16} />}
+                    flat
+                    auto
+                  >
+                    Sign In
+                  </Dropdown.Button>
+                  <Dropdown.Menu
+                    aria-label="Static Actions"
+                    onAction={(e) => { routerHandler(e) }}
+                  >
+                    <Dropdown.Item
+                      key="user"
+                      icon={
+                        <IconContext.Provider value={{ size: 16, color: '#9750DD' }}>
+                          <RiUser6Line />
+                        </IconContext.Provider>
+                      }
+                      color='secondary'
+                    >
+                      Member
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      key="admin"
+                      icon={
+                        <IconContext.Provider value={{ size: 16, color: '#9750DD' }}>
+                          <TbUsers />
+                        </IconContext.Provider>
+                      }
+                      color='secondary'
+                    >
+                      Co-ordinator
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      key="administrator"
+                      icon={
+                        <IconContext.Provider value={{ size: 16, color: '#A66908' }}>
+                          <RiBuilding2Line />
+                        </IconContext.Provider>
+                      }
+                      color='warning'
+                    >
+                      Administrator
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </>
+            )}
           </Stack>
         </Flex>
         <Collapse in={isOpen} animateOpacity>
@@ -183,7 +238,7 @@ export default function Navbar() {
             onSelectNavClose={onSelectNavClose}
           />
         </Collapse>
-      </Box>
+      </Box >
     );
 
     setComp(element);

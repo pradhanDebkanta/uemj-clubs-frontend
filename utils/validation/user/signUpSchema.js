@@ -16,5 +16,5 @@ export const signUpSchema = yup.object().shape({
         .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
             "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"),
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Password doesn't match").required('Please enter password again.'),
-    clubName: yup.array().of(yup.string().required('Select club name.')).required('Select club name.')
+    clubName: yup.array().of(yup.string()).required('Select club name.').nullable().min(1, 'Choose a club.')
 })
