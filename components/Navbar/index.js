@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useLayoutEffect } from 'react';
 import dynamic from 'next/dynamic'
 
 import {
@@ -12,7 +12,7 @@ import {
   Collapse,
   useColorMode,
 } from '@chakra-ui/react';
-import { Button as NextButton, Popover, Switch, useTheme, Text, Dropdown } from '@nextui-org/react';
+import { Button as NextButton, Switch, useTheme, Text, Dropdown, Row, Col } from '@nextui-org/react';
 import { useTheme as useNextTheme } from 'next-themes'
 
 import { RiCloseLine, RiMenuLine, RiUser6Line, RiBuilding2Line } from 'react-icons/ri';
@@ -26,14 +26,17 @@ import Logo from './Logo';
 import { useRouter } from 'next/router';
 
 import UserProfile from './UserProfile';
+import { useWindowSize } from '../../utils/customHooks/resizeObserver';
 
 // const UserProfile = dynamic(import('./UserProfile').then(e => e), { ssr: false });
 
 const { UserIcon, SunIcon, MoonIcon } = MyIcon
 
+
+
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-  const [isLogin, setLogin] = useState(false);
+  const [isLogin, setLogin] = useState(true);
 
   const { colorMode, toggleColorMode } = useColorMode();
   const { setTheme } = useNextTheme();
@@ -51,6 +54,7 @@ export default function Navbar() {
 
   // prevending rerender each the scrolling time use a state of component 
   const [comp, setComp] = useState('');
+  const windowSize = useWindowSize();
 
   // console.log("next theme", isDark);
 
@@ -91,8 +95,10 @@ export default function Navbar() {
       router.push('/sign-in');
     else if (e === 'admin')
       router.push('/admin/signin')
-    else
+    else if (e === 'administrator')
       router.push('/super-admin/signin');
+    else
+      return
   }
 
   useEffect(() => {
@@ -153,25 +159,25 @@ export default function Navbar() {
             spacing={4}
           >
 
-            <Switch
-              checked={isDark}
-              size="sm"
-              color={'secondary'}
-              // bordered={true}
-              iconOn={<SunIcon filled style={{ color: '#F8C572' }} />}
-              iconOff={<MoonIcon filled style={{ color: '#FF6BD5' }} />}
-              preventDefault
-              shadow
-              css={{
-                // marginRight: 12,
-                marginTop: 4
+            {windowSize > 425 && (
+              <Switch
+                checked={isDark}
+                size="xs"
+                color={'secondary'}
+                iconOn={<SunIcon filled style={{ color: '#F8C572' }} />}
+                iconOff={<MoonIcon filled style={{ color: '#FF6BD5' }} />}
+                preventDefault
+                css={{
+                  // marginRight: 12,
+                  marginTop: 4
 
-              }}
-              onChange={(e) => {
-                setTheme(e.target.checked ? 'dark' : 'light');
-                toggleColorMode();
-              }}
-            />
+                }}
+                onChange={(e) => {
+                  setTheme(e.target.checked ? 'dark' : 'light');
+                  toggleColorMode();
+                }}
+              />
+            )}
 
             {isLogin ? (
               <div>
@@ -227,6 +233,52 @@ export default function Navbar() {
                     >
                       Administrator
                     </Dropdown.Item>
+                    {windowSize <= 425 && (
+                      <Dropdown.Item
+                        key="changeTheme"
+                        color='secondery'
+                        withDivider
+                        icon={
+                          <>
+                            {isDark ? (<MoonIcon filled style={{ color: '#FF6BD5' }} size={15} />)
+                              : (
+                                <SunIcon filled style={{ color: '#F8C572' }} size={15} />
+                              )}
+                          </>
+                        }
+                      >
+                        <Row>
+                          <Col span={10}>
+                            <Text
+                              color='secondary'
+                            >
+                              Change Theme
+                            </Text>
+
+                          </Col>
+                          <Col span={2}>
+                            <Switch
+                              checked={isDark}
+                              size="xs"
+                              color={'secondary'}
+                              iconOn={<SunIcon filled style={{ color: '#F8C572' }} />}
+                              iconOff={<MoonIcon filled style={{ color: '#FF6BD5' }} />}
+                              preventDefault
+                              css={{
+                                // marginRight: 12,
+                                marginTop: 4
+
+                              }}
+                              onChange={(e) => {
+                                setTheme(e.target.checked ? 'dark' : 'light');
+                                toggleColorMode();
+                              }}
+                            />
+                          </Col>
+                        </Row>
+
+                      </Dropdown.Item>
+                    )}
                   </Dropdown.Menu>
                 </Dropdown>
               </>
@@ -243,8 +295,7 @@ export default function Navbar() {
 
     setComp(element);
 
-  }, [debounceStyle, bgColor, textColor, border, logoColor, breakPoint, isDark, isOpen, isLogin])
-
+  }, [debounceStyle, bgColor, textColor, border, logoColor, breakPoint, isDark, isOpen, isLogin, windowSize])
 
   return (
 

@@ -28,7 +28,6 @@ const OtpForm = () => {
     const autoFocus = (num, curr, next = null) => {
         console.log(num.length);
         if (num.length === 1) {
-            console.log('inside if');
             if (next !== null) {
                 next.current.focus();
             }
@@ -67,13 +66,6 @@ const OtpForm = () => {
         }
 
     }, [formik])
-
-    useEffect(() => {
-        // if (isLastFull) {
-            ref6.current.value = lastValue;
-            // }
-        }, )
-        console.log('dkkkk', ref6);
 
     return (
         <>
@@ -186,13 +178,12 @@ const OtpForm = () => {
                                     <Input
                                         type={'number'}
                                         ref={ref6}
-                                        // value={isLastFull ? lastValue : formik.values.six}
-                                        value={lastValue}
+                                        value={isLastFull ? lastValue : formik.values.six}
                                         name='six'
                                         underlined
                                         color={errorColor('six', formik)}
                                         onChange={(e) => {
-                                            console.log(e.target.value, e.target.value.length, 'len', lastValue, ref6.current.value)
+                                            console.log(lastValue, ref6.current.value)
                                             if (e.target.value.length <= 1) {
                                                 setLastFull(true);
                                                 setlastValue(e.target.value)
@@ -230,24 +221,6 @@ const OtpForm = () => {
                                 </Grid>
                             </Grid.Container>
                         </form>
-                        {/* <input
-                            type={'number'}
-                            onChange={(e) => {
-                                console.log(e.target.value, '');
-                                if (e.target.value.length <= 1) {
-                                    setlastValue(e.target.value)
-                                }
-                            }}
-                            value={lastValue}
-                        /> */}
-                        {/* <Input
-                            type={'text'}
-                            value={'Something..'}
-                            onChange={(e) => {
-                                console.log(e.target.value);
-                            }}
-                            bordered
-                        /> */}
                     </div>
                 </Card.Body>
             </Card>

@@ -1,16 +1,25 @@
 import React, { useState } from "react";
-import { Dropdown, Avatar, Text, Grid, } from "@nextui-org/react";
+import { Dropdown, Avatar, Text, Grid, useTheme, Row, Col, Switch } from "@nextui-org/react";
 import MyIcon from '../../utils/icon';
 import { GiSettingsKnobs } from 'react-icons/gi';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { TbLayoutDashboard } from 'react-icons/tb';
 import Logout from "../Authentication/NormalUser/Logout";
+import { useWindowSize } from '../../utils/customHooks/resizeObserver';
+import { useTheme as useNextTheme } from 'next-themes'
+import { useColorMode } from "@chakra-ui/react";
 
-const { NotificationIcon, UserIcon } = MyIcon;
+
+const { NotificationIcon, UserIcon, SunIcon, MoonIcon } = MyIcon;
 
 
 export default function UserProfile() {
     const [selectKey, setSelectKey] = useState('');
+    const { colorMode, toggleColorMode } = useColorMode();
+    const { setTheme } = useNextTheme();
+    const { isDark, type } = useTheme();
+    const windowSize = useWindowSize();
+
 
     const handleSelect = (key) => {
         console.log(key, " selected key")
@@ -76,6 +85,52 @@ export default function UserProfile() {
                             >
                                 Log Out
                             </Dropdown.Item>
+                            {windowSize <= 425 && (
+                                <Dropdown.Item
+                                    key="changeTheme"
+                                    color='secondery'
+                                    withDivider
+                                    icon={
+                                        <>
+                                            {isDark ? (<MoonIcon filled style={{ color: '#FF6BD5' }} size={15} />)
+                                                : (
+                                                    <SunIcon filled style={{ color: '#F8C572' }} size={15} />
+                                                )}
+                                        </>
+                                    }
+                                >
+                                    <Row>
+                                        <Col span={10}>
+                                            <Text
+                                                color='secondary'
+                                            >
+                                                Change Theme
+                                            </Text>
+
+                                        </Col>
+                                        <Col span={2}>
+                                            <Switch
+                                                checked={isDark}
+                                                size="xs"
+                                                color={'secondary'}
+                                                iconOn={<SunIcon filled style={{ color: '#F8C572' }} />}
+                                                iconOff={<MoonIcon filled style={{ color: '#FF6BD5' }} />}
+                                                preventDefault
+                                                css={{
+                                                    // marginRight: 12,
+                                                    marginTop: 4
+
+                                                }}
+                                                onChange={(e) => {
+                                                    setTheme(e.target.checked ? 'dark' : 'light');
+                                                    toggleColorMode();
+                                                }}
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                </Dropdown.Item>
+                            )}
                         </Dropdown.Menu>
                     </Dropdown>
                 </Grid>
