@@ -36,7 +36,7 @@ const { UserIcon, SunIcon, MoonIcon } = MyIcon
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-  const [isLogin, setLogin] = useState(true);
+  const [isLogin, setLogin] = useState(false);
 
   const { colorMode, toggleColorMode } = useColorMode();
   const { setTheme } = useNextTheme();
@@ -159,7 +159,7 @@ export default function Navbar() {
             spacing={4}
           >
 
-            {windowSize > 425 && (
+            {windowSize > 525 && (
               <Switch
                 checked={isDark}
                 size="xs"
@@ -233,7 +233,7 @@ export default function Navbar() {
                     >
                       Administrator
                     </Dropdown.Item>
-                    {windowSize <= 425 && (
+                    {windowSize <= 525 && (
                       <Dropdown.Item
                         key="changeTheme"
                         color='secondery'

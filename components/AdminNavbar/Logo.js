@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from '@nextui-org/react';
 import Image from 'next/image';
@@ -11,13 +11,22 @@ import logo from '../../assets/styles/Navbar.module.css';
 const Logo = () => {
     const router = useRouter();
     const { isDark } = useTheme();
+    const [isCodestaRoute, setCodestaRoute] = useState(false);
 
-    // console.log(router, "route")
+    useEffect(() => {
+        if (router.pathname.includes('/admin/codesta')) {
+            setCodestaRoute(true);
+        } else {
+            setCodestaRoute(false);
+        }
+
+    }, [router]);
+
     return (
         <>
             <div className={logo.logoBox}>
                 {
-                    (router.asPath === '/codesta' || router.asPath === "/features/codesta" || router.asPath === "/latest-activity/codesta") ? (
+                    isCodestaRoute ? (
                         <Image
                             src={isDark ? codestaBlack : codestaWhite}
                             alt='codesta logo'

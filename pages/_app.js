@@ -59,9 +59,9 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (router) {
-      if (router?.pathname?.includes('/super-admin')) {
+      if (router?.asPath?.includes('/super-admin')) {
         setActiveRoute('super-admin');
-      } else if (router?.pathname.includes('/admin')) {
+      } else if (router?.asPath.includes('/admin')) {
         setActiveRoute('admin');
       } else {
         setActiveRoute('user');
