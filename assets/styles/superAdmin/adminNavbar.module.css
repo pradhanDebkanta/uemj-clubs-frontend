@@ -6,3 +6,8 @@
     margin-right: 0 !important;
 
 }
+
+.mDropdownButton{
+    width: 100% !important;
+    justify-content: start !important;
+}
