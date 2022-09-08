@@ -1,7 +1,8 @@
 import React from 'react'
 
-export const index = () => {
+const index = () => {
     return (
         <div>music dashboard</div>
     )
 }
+export default index;
