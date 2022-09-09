@@ -1,18 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Card, Input, Text, Button, Spacer, Grid, useTheme, Row, Col } from '@nextui-org/react';
+import React, { useRef, useEffect } from 'react';
+import { Card, Text, Button, Spacer, Grid, useTheme, Row, Col, Tooltip } from '@nextui-org/react';
+import { Input } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import { otpSchema } from '../../../../utils/validation/superAdmin/forgetPasswordSchema';
-import sign from '../../../../assets/styles/superAdmin/sign.module.css';
-import MyIcon from '../../../../utils/icon';
-import { IoBagCheckOutline } from 'react-icons/io5'
-import { IconContext } from 'react-icons';
+import { otpSchema } from '../../../utils/validation/superAdmin/forgetPasswordSchema';
+import sign from '../../../assets/styles/superAdmin/sign.module.css';
+import { useWindowSize } from '.././../../utils/customHooks/resizeObserver';
 
 
 const OtpForm = () => {
     const { isDark } = useTheme();
     const headerColor = isDark ? "45deg, $purple600 -20%, $pink600 100%" : "-20deg, #b721ff 0%, #21d4fd 100%";
-    const [isLastFull, setLastFull] = useState(false);
-    const [lastValue, setlastValue] = useState('');
 
     const ref1 = useRef(null);
     const ref2 = useRef(null);
@@ -21,19 +18,7 @@ const OtpForm = () => {
     const ref5 = useRef(null);
     const ref6 = useRef(null);
 
-    useEffect(() => {
-        ref1?.current.focus();
-    }, [])
-
-    const autoFocus = (num, curr, next = null) => {
-        console.log(num.length);
-        if (num.length === 1) {
-            if (next !== null) {
-                next.current.focus();
-            }
-        }
-
-    }
+    const size = useWindowSize();
 
     const formik = useFormik({
         initialValues: {
@@ -51,21 +36,22 @@ const OtpForm = () => {
         validationSchema: otpSchema,
     });
 
-    const errorText = (key, obj) => {
-        return obj.touched[key] && obj.errors[key] ? obj.errors[key] : '';
-    }
-    const errorColor = (key, obj) => {
-        return obj.touched[key] && obj.errors[key] ? 'error' : 'secondary';
-    }
-
     useEffect(() => {
-        // console.log('hii');
-        const { one, two, three, four, five, six } = formik.values
-        if (one && two && three && four && five && six) {
-            console.log('all filed');
-        }
+        ref1?.current.focus();
+    }, [])
 
-    }, [formik])
+    const autoFocus = (e, next = null) => {
+        if (e.target.value.length <= 1) {
+            formik.handleChange(e);
+            if (e.target.value.length === 1 && next != null) {
+                next.current.focus();
+            }
+        }
+    }
+
+    const errorColor = (key, obj) => {
+        return obj.touched[key] && obj.errors[key] ? '#F31260' : 'var(--nextui-colors-secondaryLightContrast)';
+    }
 
     return (
         <>
@@ -93,21 +79,24 @@ const OtpForm = () => {
                         <Spacer y={0.5} />
 
                         <form onSubmit={formik.handleSubmit}>
-                            <Row gap={0.5}>
-                                {/* {console.log(formik.errors, 'er', formik.values)} */}
+                            <Row gap={size >= 525 ? 0.5 : 0}>
                                 <Col>
                                     <Input
                                         type={'number'}
                                         ref={ref1}
                                         name='one'
                                         value={formik.values.one}
-                                        underlined
-                                        color={errorColor('one', formik)}
                                         onChange={(e) => {
-                                            autoFocus(e.target.value, ref1, ref2);
-                                            formik.handleChange(e);
+                                            autoFocus(e, ref2);
                                         }}
                                         className={sign.inputText}
+                                        _focus={{
+                                            borderColor: 'var(--nextui-colors-secondary)'
+                                        }}
+                                        _hover={{
+                                            borderColor: '#4C5155'
+                                        }}
+                                        borderColor={errorColor('one', formik)}
                                     />
 
                                 </Col>
@@ -117,13 +106,17 @@ const OtpForm = () => {
                                         ref={ref2}
                                         value={formik.values.two}
                                         name='two'
-                                        underlined
-                                        color={errorColor('two', formik)}
                                         onChange={(e) => {
-                                            autoFocus(e.target.value, ref2, ref3);
-                                            formik.handleChange(e);
+                                            autoFocus(e, ref3);
                                         }}
                                         className={sign.inputText}
+                                        _focus={{
+                                            borderColor: 'var(--nextui-colors-secondary)'
+                                        }}
+                                        _hover={{
+                                            borderColor: '#4C5155'
+                                        }}
+                                        borderColor={errorColor('two', formik)}
                                     />
                                 </Col>
                                 <Col>
@@ -132,14 +125,17 @@ const OtpForm = () => {
                                         ref={ref3}
                                         value={formik.values.three}
                                         name='three'
-                                        underlined
-                                        color={errorColor('three', formik)}
                                         onChange={(e) => {
-                                            autoFocus(e.target.value, ref3, ref4);
-                                            formik.handleChange(e);
+                                            autoFocus(e, ref4);
                                         }}
                                         className={sign.inputText}
-
+                                        _focus={{
+                                            borderColor: 'var(--nextui-colors-secondary)'
+                                        }}
+                                        _hover={{
+                                            borderColor: '#4C5155'
+                                        }}
+                                        borderColor={errorColor('three', formik)}
                                     />
                                 </Col>
                                 <Col>
@@ -148,14 +144,18 @@ const OtpForm = () => {
                                         ref={ref4}
                                         value={formik.values.four}
                                         name='four'
-                                        underlined
-                                        color={errorColor('four', formik)}
                                         onChange={(e) => {
-                                            autoFocus(e.target.value, ref4, ref5);
-                                            formik.handleChange(e);
+                                            autoFocus(e, ref5);
+
                                         }}
                                         className={sign.inputText}
-
+                                        _focus={{
+                                            borderColor: 'var(--nextui-colors-secondary)'
+                                        }}
+                                        _hover={{
+                                            borderColor: '#4C5155'
+                                        }}
+                                        borderColor={errorColor('four', formik)}
                                     />
                                 </Col>
                                 <Col>
@@ -164,39 +164,41 @@ const OtpForm = () => {
                                         ref={ref5}
                                         value={formik.values.five}
                                         name='five'
-                                        underlined
-                                        color={errorColor('five', formik)}
                                         onChange={(e) => {
-                                            autoFocus(e.target.value, ref5, ref6);
-                                            formik.handleChange(e);
+                                            autoFocus(e, ref6);
                                         }}
                                         className={sign.inputText}
-
+                                        _focus={{
+                                            borderColor: 'var(--nextui-colors-secondary)'
+                                        }}
+                                        _hover={{
+                                            borderColor: '#4C5155'
+                                        }}
+                                        borderColor={errorColor('five', formik)}
                                     />
                                 </Col>
                                 <Col>
                                     <Input
                                         type={'number'}
                                         ref={ref6}
-                                        value={isLastFull ? lastValue : formik.values.six}
+                                        value={formik.values.six}
                                         name='six'
-                                        underlined
-                                        color={errorColor('six', formik)}
                                         onChange={(e) => {
-                                            console.log(lastValue, ref6.current.value)
                                             if (e.target.value.length <= 1) {
-                                                setLastFull(true);
-                                                setlastValue(e.target.value)
                                                 formik.handleChange(e);
-                                            } else {
-                                                // setLastFull(false);
-                                                // ref6.current.value = lastValue;
                                             }
                                         }}
                                         className={sign.inputText}
-
+                                        _focus={{
+                                            borderColor: 'var(--nextui-colors-secondary)'
+                                        }}
+                                        _hover={{
+                                            borderColor: '#4C5155'
+                                        }}
+                                        borderColor={errorColor('six', formik)}
                                     />
                                 </Col>
+
 
                             </Row>
                             <div className={sign.inputErrorBox}>
@@ -214,10 +216,40 @@ const OtpForm = () => {
                             <Spacer y={1} />
                             <Grid.Container gap={1} justify='space-evenly'>
                                 <Grid>
-                                    <Button color='secondary' flat type='submit'>Confirm OTP</Button>
+                                    <Tooltip
+                                        content={'Reset the OTP value.'}
+                                        contentColor='warning'
+                                        placement='bottom'
+                                    >
+                                        <Button
+                                            color='warning'
+                                            flat
+                                            onClick={() => {
+                                                formik.resetForm();
+                                                ref1?.current.focus();
+                                            }}
+                                        >
+                                            Reset OTP
+                                        </Button>
+                                    </Tooltip>
                                 </Grid>
                                 <Grid>
-                                    <Button color='secondary' flat >Resend OTP</Button>
+                                    <Tooltip
+                                        content={'Click to verify OTP.'}
+                                        contentColor='success'
+                                        placement='bottom'
+                                    >
+                                        <Button color='success' flat type='submit'>Confirm OTP</Button>
+                                    </Tooltip>
+                                </Grid>
+                                <Grid>
+                                    <Tooltip
+                                        content={'Send the OTP again.'}
+                                        contentColor='secondary'
+                                        placement='bottom'
+                                    >
+                                        <Button color='secondary' flat >Resend OTP</Button>
+                                    </Tooltip>
                                 </Grid>
                             </Grid.Container>
                         </form>

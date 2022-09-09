@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, Input, Text, Button, Spacer, Grid, } from '@nextui-org/react';
 import { useFormik } from 'formik';
-import sign from '../../../../assets/styles/superAdmin/sign.module.css';
-import MyIcon from '../../../../utils/icon';
-import { forgetPasswordSchema } from '../../../../utils/validation/superAdmin/forgetPasswordSchema';
+import sign from '../../../assets/styles/superAdmin/sign.module.css';
+import MyIcon from '../../../utils/icon';
+import { forgetPasswordSchema } from '../../../utils/validation/superAdmin/forgetPasswordSchema';
 
 const { Mail } = MyIcon;
 

@@ -1,9 +1,9 @@
 import React, { } from 'react';
 import { Card, Input, Text, Button, Spacer, Grid, useTheme, } from '@nextui-org/react';
 import { useFormik } from 'formik';
-import { resetPasswordSchema } from '../../../../utils/validation/superAdmin/forgetPasswordSchema';
-import sign from '../../../../assets/styles/superAdmin/sign.module.css';
-import MyIcon from '../../../../utils/icon';
+import { resetPasswordSchema } from '../../../utils/validation/superAdmin/forgetPasswordSchema';
+import sign from '../../../assets/styles/superAdmin/sign.module.css';
+import MyIcon from '../../../utils/icon';
 import { IoBagCheckOutline } from 'react-icons/io5'
 import { IconContext } from 'react-icons';
 

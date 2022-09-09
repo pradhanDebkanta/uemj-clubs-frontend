@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import SignINComp from '../components/Authentication/NormalUser/SignIn';
-import ForgetPassword from '../components/Authentication/NormalUser/ForgetPassword';
+import ForgetPassword from '../components/Authentication/ForgetPassword';
 
 const SignIn = () => {
     const router = useRouter();
@@ -16,7 +16,7 @@ const SignIn = () => {
             </Head>
             {
                 query?.['forget-password'] ? (
-                    <ForgetPassword />
+                    <ForgetPassword role={'club_member'} />
                 ) : (
                     <SignINComp />
                 )

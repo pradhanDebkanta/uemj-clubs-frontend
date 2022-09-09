@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import SignINComp from '../../../components/Authentication/SuperAdmin/SignIn';
-import ForgetPassword from '../../../components/Authentication/SuperAdmin/ForgetPassword';
+import ForgetPassword from '../../../components/Authentication/ForgetPassword';
 
 const SignIn = () => {
   const router = useRouter();
@@ -17,7 +17,9 @@ const SignIn = () => {
 
       {
         query?.['forget-password'] ? (
-          <ForgetPassword />
+          <ForgetPassword
+            role={'super_admin'}
+          />
         ) : (
           <SignINComp />
         )

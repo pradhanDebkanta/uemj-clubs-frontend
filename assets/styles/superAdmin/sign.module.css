@@ -50,7 +50,7 @@
     background-image: url('../../images/quick-sol.png');
 }
 
-.inputText input {
+.inputText {
     text-align: center !important;
 }
 
@@ -64,5 +64,11 @@
 @media screen and (max-width: 650px) {
     .responsiveHeader {
         font-size: 20px !important;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .inputText {
+        padding: 0 !important;
     }
 }
