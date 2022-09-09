@@ -143,7 +143,7 @@ const Teams = () => {
                     itemPadding={[8, 8, 8, 8]}
                     easing='ease-in'
                     pagination={false}
-                    transitionMs={500}
+                    transitionMs={size >= 525 ? 500 : 200}
                 // onChange={(data)=>{console.log(data,'cc')}}
                 >
                     {
