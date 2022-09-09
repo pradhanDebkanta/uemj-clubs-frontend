@@ -5,6 +5,7 @@ import home from '../../assets/styles/codesta/home.module.css';
 import MyIcon from '../../utils/icon';
 import { AiOutlineProfile } from 'react-icons/ai'
 import { IconContext } from 'react-icons';
+import { useWindowSize } from '../../utils/customHooks/resizeObserver';
 
 const { Mail, UserIcon } = MyIcon
 
@@ -102,18 +103,7 @@ const Teams = () => {
     const bgCol = isDark ? '#16181A' : '#ECEDEE';
     const textColor = isDark ? "45deg, $purple600 -20%, $pink600 100%" : "-20deg, #b721ff 0%, #21d4fd 100%";
 
-    const [size, setSize] = useState(window?.innerWidth);
-
-
-    useLayoutEffect(() => {
-        // 768px
-        const resizeObserver = () => {
-            let size = window?.innerWidth;
-            setSize(size);
-        }
-        window?.addEventListener('resize', resizeObserver, { passive: true });
-        return () => window?.removeEventListener('resize', resizeObserver);
-    }, []);
+    const size = useWindowSize();
 
     const onClickmail = (mail) => {
         console.log('mail');
@@ -152,6 +142,8 @@ const Teams = () => {
                     showArrows={size <= 768 ? false : true}
                     itemPadding={[8, 8, 8, 8]}
                     easing='ease-in'
+                    pagination={false}
+                    transitionMs={500}
                 // onChange={(data)=>{console.log(data,'cc')}}
                 >
                     {
