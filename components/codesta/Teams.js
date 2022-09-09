@@ -141,9 +141,9 @@ const Teams = () => {
                     breakPoints={breakPoints}
                     showArrows={size <= 768 ? false : true}
                     itemPadding={[8, 8, 8, 8]}
-                    easing='ease-in'
+                    easing='ease'
                     pagination={false}
-                    transitionMs={size >= 525 ? 500 : 200}
+                    transitionMs={size >= 525 ? 500 : 100}
                 // onChange={(data)=>{console.log(data,'cc')}}
                 >
                     {
