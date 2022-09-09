@@ -239,7 +239,7 @@ const OtpForm = () => {
                                         contentColor='success'
                                         placement='bottom'
                                     >
-                                        <Button color='success' flat type='submit'>Confirm OTP</Button>
+                                        <Button color='success' flat type='submit'>Verify OTP</Button>
                                     </Tooltip>
                                 </Grid>
                                 <Grid>

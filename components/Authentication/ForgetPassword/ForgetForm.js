@@ -72,7 +72,7 @@ const ForgetForm = () => {
 
                             <Grid.Container gap={1} justify='center'>
                                 <Grid>
-                                    <Button color='secondary' flat type='submit'>Confirm Email</Button>
+                                    <Button color='secondary' flat type='submit'>Verify Email</Button>
                                 </Grid>
                             </Grid.Container>
                         </form>
