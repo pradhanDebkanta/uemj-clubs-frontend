@@ -1,20 +1,18 @@
-import React, { useCallback, } from 'react';
+import React, { useCallback } from 'react';
 import NextLink from 'next/link';
+import { Navbar, Link, Dropdown } from '@nextui-org/react';
 import { useRouter } from 'next/router';
-import { Navbar, Dropdown, } from '@nextui-org/react';
+import { IconContext } from 'react-icons';
 
-import { Layout } from './Layout';
-import Logo from './Logo';
-import MobileNavbar from './MobileNavbar';
-import UserProfile from './UserProfile';
-import { useWindowSize } from '../../utils/customHooks/resizeObserver';
-import { icons } from '../../utils/icon/newIcon';
+
 import navCss from '../../assets/styles/superAdmin/adminNavbar.module.css';
 import NavItems from './NavItem';
+import { icons } from '../../utils/icon/newIcon';
 
 
-const SANavbar = () => {
-    const windowSize = useWindowSize();
+
+
+const MobileNavbar = () => {
     const router = useRouter();
 
     const activeRoute = useCallback((route) => {
@@ -60,56 +58,47 @@ const SANavbar = () => {
 
     return (
         <>
-            <Layout>
-                <Navbar
-                    shouldHideOnScroll={true}
-                    variant={'stricky'}
-                    isCompact={windowSize <= 725}
-                >
-                    <Navbar.Toggle showIn="xs" />
-                    <Navbar.Brand
+            <Navbar.Collapse >
+
+                {NavItems.map((item, index) => (
+                    <Navbar.CollapseItem
+                        key={item.key}
+                        activeColor={'secondary'}
                         css={{
-                            "@xs": {
-                                w: "12%",
-                            },
                         }}
-                    >
-                        <div>
-                            <Logo />
-                        </div>
-                    </Navbar.Brand>
-                    <Navbar.Content
-                        enableCursorHighlight
-                        activeColor="secondary"
-                        hideIn="xs"
-                        variant="highlight-rounded"
-                    >
-                        {NavItems?.map((item, idx) => {
-                            return (
-                                item?.child ? (
-                                    <Dropdown key={item.key}>
-                                        <Navbar.Item>
-                                            <Dropdown.Button
-                                                auto
-                                                light
-                                                css={{
-                                                    px: 0,
-                                                    dflex: "center",
-                                                    svg: { pe: "none" },
-                                                    "&:hover": {
-                                                        color: 'var(--nextui--navbarItemHighlightTextColor)'
-                                                    }
-                                                }}
-                                                iconRight={icons.chevron}
-                                                ripple={false}
-                                                className={navCss.dropdownButton}
-                                                color={activeButton(item?.child) ? 'secondary' : 'default'}
-                                            >
-                                                {item.name}
-                                            </Dropdown.Button>
-                                        </Navbar.Item>
+                        isActive={activeRoute(item.url)}
+                    >{
+                            item?.child ? (
+                                <>
+                                    <Dropdown
+                                        placement='bottom-left'
+                                    >
+                                        <Dropdown.Button
+                                            light
+                                            css={{
+                                                '@sm': {
+                                                    fontSize: 14,
+                                                },
+                                                fontSize: 17,
+                                                px: 0,
+                                                // dflex: "center",
+                                                // svg: { pe: "none" },
+                                                "&:hover": {
+                                                    color: 'var(--nextui--navbarItemHighlightTextColor)',
+                                                    transform: 'translateX(4px)',
+                                                    transition: 'all 0.3s ease'
+                                                }
+                                            }}
+                                            iconRight={icons.chevron}
+                                            ripple={false}
+                                            className={navCss.mDropdownButton}
+                                            color={activeButton(item?.child) ? 'secondary' : 'default'}
+                                        >
+                                            {item.icon}
+                                            {item.name}
+                                        </Dropdown.Button>
                                         <Dropdown.Menu
-                                            aria-label={item.key}
+                                            aria-label="campaign"
                                             onAction={handleDropdown}
                                             css={{
                                                 $$dropdownMenuWidth: "320px",
@@ -150,29 +139,39 @@ const SANavbar = () => {
 
                                         </Dropdown.Menu>
                                     </Dropdown>
-                                ) : (
-                                    <NextLink href={item.url} key={item.key}>
-                                        <Navbar.Link
-                                            isActive={activeRoute(item.url)}
-                                        >
-                                            {item.name}
-                                        </Navbar.Link>
-                                    </NextLink>
-                                )
+
+                                </>
+                            ) : (
+                                <NextLink href={item.url}>
+                                    <Link
+                                        color="inherit"
+                                        css={{
+                                            minWidth: "100%",
+                                            '&:hover': {
+                                                color: 'var(--nextui--navbarItemHighlightTextColor)',
+                                                transform: 'translateX(4px)',
+                                                transition: 'all 0.3s ease'
+
+                                            },
+                                            '@sm': {
+                                                fontSize: 16,
+                                            },
+
+                                        }}
+
+                                    >
+                                        {item.icon}
+                                        {item.name}
+                                    </Link>
+                                </NextLink>
                             )
-                        })}
+                        }
 
-                    </Navbar.Content>
-                    {/* for user profile section */}
-                    <UserProfile />
-
-                    {/* for mobile navbar */}
-
-                    <MobileNavbar />
-                </Navbar>
-            </Layout>
+                    </Navbar.CollapseItem>
+                ))}
+            </Navbar.Collapse>
         </>
     )
 }
 
-export default SANavbar
+export default MobileNavbar
