@@ -74,6 +74,9 @@ const OtpForm = () => {
                                 >
                                     OTP Confirmation
                                 </Text>
+                                <Text size={16}>
+                                    OTP sent to abc******@gmail.com.
+                                </Text>
                             </Grid>
                         </Grid.Container>
                         <Spacer y={0.5} />

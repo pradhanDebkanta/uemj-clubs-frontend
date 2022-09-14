@@ -19,7 +19,7 @@ const Logo = () => {
                 {
                     (router.asPath === '/codesta' || router.asPath === "/features/codesta" || router.asPath === "/latest-activity/codesta") ? (
                         <Image
-                            src={isDark ? codestaBlack : codestaWhite}
+                            src={isDark ? codestaWhite: codestaBlack}
                             alt='codesta logo'
                             height={50}
                             width={80}
@@ -28,7 +28,7 @@ const Logo = () => {
                         />
                     ) : (
                         <Image
-                            src={isDark ? uemLight : uemDark}
+                            src={isDark ? uemLight: uemDark}
                             alt='uem logo'
                             height={40}
                             width={80}

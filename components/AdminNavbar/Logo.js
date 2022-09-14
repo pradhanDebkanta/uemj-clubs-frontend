@@ -28,7 +28,7 @@ const Logo = () => {
                 {
                     isCodestaRoute ? (
                         <Image
-                            src={isDark ? codestaBlack : codestaWhite}
+                            src={isDark ? codestaWhite : codestaBlack}
                             alt='codesta logo'
                             height={50}
                             width={80}
