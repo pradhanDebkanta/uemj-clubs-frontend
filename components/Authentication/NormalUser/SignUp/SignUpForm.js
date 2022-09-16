@@ -13,31 +13,10 @@ import SignUpWithGoogle from '../../SuperAdmin/SignUp/SignUpWithGoogle';
 import GAuthInitializer from '../../HOC/GAuthInitializer';
 import { signUpSchema } from '../../../../utils/validation/user/signUpSchema';
 import { googleSignUpSchema } from '../../../../utils/validation/user/googleSignUpSchema';
+import {clubs} from '../../../../utils/constant/clubNames';
 
 const { UserIcon, Mail, Password } = MyIcon;
 
-const clubs = [
-    {
-        name: 'Coding Club',
-        value: 'coding_club',
-    },
-    {
-        name: 'Nature Club',
-        value: 'nature_club',
-    },
-    {
-        name: 'Gaming Club',
-        value: 'gaming_club',
-    },
-    {
-        name: 'Music & Cultural',
-        value: 'music_club',
-    },
-    {
-        name: 'Photography',
-        value: 'photography_club',
-    },
-];
 
 const SignUpForm = () => {
     const { isDark } = useTheme();

@@ -13,5 +13,15 @@ export const signUpSchema = yup.object().shape({
             "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"),
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], "Password doesn't match").required('Please enter password again.'),
     accountType: yup.string().required('Select account type.'),
-    clubName: yup.string().required('Select club name.')
+    clubName: yup.string().required('Select club name.'),
+
+    enrollmentNo: yup.number()
+        .when("accountType", (acc) => {
+            if (acc === 'co_ordinator') {
+                return yup.number().required('Enrollment no. is required.').integer('Enrollment no. must be integer')
+                    .positive('Enrollment no. must be positive').test('len', 'Enrollment no must be 14 digit.', value => {
+                        return String(value).length === 14;
+                    })
+            }
+        }),
 })

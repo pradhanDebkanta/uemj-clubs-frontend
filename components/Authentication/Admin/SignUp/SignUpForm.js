@@ -9,44 +9,15 @@ import MyIcon from '../../../../utils/icon';
 import { IoBagCheckOutline } from 'react-icons/io5'
 import { IconContext } from 'react-icons';
 import { SiGoogle } from 'react-icons/si';
+import { GiTiedScroll } from 'react-icons/gi';
 import SignUpWithGoogle from '../../SuperAdmin/SignUp/SignUpWithGoogle';
 import GAuthInitializer from '../../HOC/GAuthInitializer';
 import { googleSignUpSchema } from '../../../../utils/validation/admin/googleSignUpSchema';
+import { accType } from '../../../../utils/constant/accountTypes';
+import { clubs } from '../../../../utils/constant/clubNames';
 
 const { UserIcon, Mail, Password } = MyIcon;
-const accType = [
-    {
-        name: 'Faculty Co-ordinator',
-        value: 'faculty_co_ordinator',
-    },
-    {
-        name: 'Co-ordinator',
-        value: 'co_ordinator',
-    }
-];
 
-const clubs = [
-    {
-        name: 'Coding Club',
-        value: 'coding_club',
-    },
-    {
-        name: 'Nature Club',
-        value: 'nature_club',
-    },
-    {
-        name: 'Gaming Club',
-        value: 'gaming_club',
-    },
-    {
-        name: 'Music & Cultural',
-        value: 'music_club',
-    },
-    {
-        name: 'Photography',
-        value: 'photography_club',
-    },
-];
 
 const SignUpForm = () => {
     const { isDark } = useTheme();
@@ -63,6 +34,7 @@ const SignUpForm = () => {
             confirmPassword: '',
             accountType: '',
             clubName: '',
+            enrollmentNo: '',
         },
         onSubmit: (value) => {
             console.log(value, 'formik');
@@ -75,6 +47,7 @@ const SignUpForm = () => {
             accountType: '',
             tokenId: '',
             clubName: '',
+            enrollmentNo: '',
         },
         onSubmit: value => {
             console.log(value, 'modalformk');
@@ -145,6 +118,31 @@ const SignUpForm = () => {
                                 clearable
                             />
                             <Spacer y={1} />
+
+                            {formik.values?.accountType === 'co_ordinator' && (
+                                <>
+                                    <Input
+                                        label='Enrollment Number'
+                                        name='enrollmentNo'
+                                        type={'number'}
+                                        placeholder='Enter your collage enrollment no.'
+                                        bordered
+                                        color={errorColor('enrollmentNo', formik)}
+                                        labelLeft={
+                                            <IconContext.Provider value={{ size: 24, color: '#A66CFF' }}>
+                                                <GiTiedScroll />
+                                            </IconContext.Provider>
+                                        }
+                                        fullWidth={true}
+                                        value={formik.values.enrollmentNo}
+                                        onChange={formik.handleChange}
+                                        helperText={errorText('enrollmentNo', formik)}
+                                        helperColor={errorColor('enrollmentNo', formik)}
+                                        clearable
+                                    />
+                                    <Spacer y={1} />
+                                </>
+                            )}
                             <Input.Password
                                 label='Password'
                                 name='password'
@@ -355,6 +353,31 @@ const SignUpForm = () => {
                                 </p>
                             </div>)}
                             <Spacer y={1} />
+
+                            {modalFormik.values?.accountType === 'co_ordinator' && (
+                                <>
+                                    <Input
+                                        label='Enrollment Number'
+                                        name='enrollmentNo'
+                                        type={'number'}
+                                        placeholder='Enter your collage enrollment no.'
+                                        bordered
+                                        color={errorColor('enrollmentNo', modalFormik)}
+                                        labelLeft={
+                                            <IconContext.Provider value={{ size: 24, color: '#A66CFF' }}>
+                                                <GiTiedScroll />
+                                            </IconContext.Provider>
+                                        }
+                                        fullWidth={true}
+                                        value={modalFormik.values.enrollmentNo}
+                                        onChange={modalFormik.handleChange}
+                                        helperText={errorText('enrollmentNo', modalFormik)}
+                                        helperColor={errorColor('enrollmentNo', modalFormik)}
+                                        clearable
+                                    />
+                                    <Spacer y={1} />
+                                </>
+                            )}
 
                             <Select
                                 placeholder='Select Club Name'
