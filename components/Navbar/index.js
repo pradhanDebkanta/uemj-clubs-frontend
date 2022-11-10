@@ -12,7 +12,7 @@ import {
   Collapse,
   useColorMode,
 } from '@chakra-ui/react';
-import { Button as NextButton, Switch, useTheme, Text, Dropdown, Row, Col } from '@nextui-org/react';
+import { Button as NextButton, Switch, useTheme, Text, Dropdown, Row, Col, Spacer } from '@nextui-org/react';
 import { useTheme as useNextTheme } from 'next-themes'
 
 import { RiCloseLine, RiMenuLine, RiUser6Line, RiBuilding2Line } from 'react-icons/ri';
@@ -26,15 +26,13 @@ import Logo from './Logo';
 import { useRouter } from 'next/router';
 
 import UserProfile from './UserProfile';
-import { useWindowSize } from '../../utils/customHooks/resizeObserver';
-
-// const UserProfile = dynamic(import('./UserProfile').then(e => e), { ssr: false });
+import throttle from '../../utils/customHooks/throttle';
 
 const { UserIcon, SunIcon, MoonIcon } = MyIcon
 
 
 
-export default function Navbar() {
+function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const [isLogin, setLogin] = useState(false);
 
@@ -42,47 +40,52 @@ export default function Navbar() {
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
 
-  const [offsetY, setOffsetY] = useState(0);
+  const [offsetY, setOffsetY] = useState(window.scrollY);
   const [dynamoStyle, setDynamoStyle] = useState({});
-  const [debounceStyle, setDebounceStyle] = useState(dynamoStyle);
 
   const bgColor = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('gray.600', 'white');
   const border = useColorModeValue('gray.200', 'gray.900');
   const logoColor = useColorModeValue('gray.800', 'white');
   const breakPoint = useBreakpointValue({ base: 'center', md: 'left' });
-
-  // prevending rerender each the scrolling time use a state of component 
-  const [comp, setComp] = useState('');
-  const windowSize = useWindowSize();
+  const router = useRouter();
+  const [windowSize, setWindowSize] = useState(window?.innerWidth);
 
   // console.log("next theme", isDark);
 
-  const router = useRouter();
 
 
-  const scrolling = useCallback(e => {
-    let currScroll = e.currentTarget.scrollY;
-    // console.log(currScroll, 'scrolling',offsetY);
-    if (offsetY > currScroll) {
-      // console.log('scroll up');
-      setDynamoStyle({
-        position: 'sticky',
-        top: 0,
-        zIndex: 999,
-      });
-    } else {
-      // console.log('scroll down');
-      setDynamoStyle({});
-    }
-    setOffsetY(currScroll);
+  const throttleWindowSize = throttle(() => {
+    // console.log('resize fired');
+    setWindowSize(window?.innerWidth);
+  }, 1000);
 
-  }, [offsetY]);
+  const throttleScrollY = throttle((scrollY) => {
+    setOffsetY((prev) => {
+      if (prev > scrollY) {
+        console.log('scroll up');
+        setDynamoStyle({
+          transform: 'translateY(0px)'
+        });
+      } else {
+        console.log('scroll down');
+        setDynamoStyle({
+          transform: 'translateY(-100%)'
+        });
+      }
+      return scrollY;
+    })
+
+
+  }, 2000);
 
   useEffect(() => {
-    window?.addEventListener('scroll', scrolling, { passive: true })
-    return () => window?.removeEventListener('scroll', scrolling)
-  }, [offsetY, scrolling]);
+    if (window !== undefined) {
+      window.addEventListener('resize', () => throttleWindowSize());
+      window.addEventListener('scroll', (e) => throttleScrollY(e.currentTarget.scrollY));
+    }
+  }, [])
+
 
   const onSelectNavClose = useCallback(() => {
     // console.log('parent toggle invoked');
@@ -101,18 +104,19 @@ export default function Navbar() {
       return
   }
 
-  useEffect(() => {
-    if (JSON.stringify(dynamoStyle) !== JSON.stringify(debounceStyle)) {
-      // console.log('actual style change');
-      setDebounceStyle(dynamoStyle);
-    }
-  }, [dynamoStyle])
+  return (
 
-  useEffect(() => {
-    // console.log('inside effect');
-    let element = (
+    <>
       <Box
-        style={dynamoStyle}
+        style={{
+          transition: 'all cubic-bezier(0,1.1,1,1.1) 0.3s',
+          transform: `${isOpen ? 'translateY(0px)' : dynamoStyle?.transform}`,
+        }}
+        position='fixed'
+        left={0}
+        top={0}
+        width='100%'
+        zIndex={999}
         boxShadow={isDark ? 'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset' : 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px'}
       >
         <Flex
@@ -132,7 +136,7 @@ export default function Navbar() {
             <IconButton
               onClick={onToggle}
               icon={
-                isOpen ? <RiCloseLine w={3} h={3} /> : <RiMenuLine w={5} h={5} />
+                isOpen ? <RiCloseLine /> : <RiMenuLine w={5} h={5} />
               }
               variant={'ghost'}
               aria-label={'Toggle Navigation'}
@@ -291,16 +295,9 @@ export default function Navbar() {
           />
         </Collapse>
       </Box >
-    );
-
-    setComp(element);
-
-  }, [debounceStyle, bgColor, textColor, border, logoColor, breakPoint, isDark, isOpen, isLogin, windowSize])
-
-  return (
-
-    <>
-      {comp}
+      <Spacer y={3}/>
     </>
   );
 }
+
+export default dynamic(() => Promise.resolve(Navbar), { ssr: false });

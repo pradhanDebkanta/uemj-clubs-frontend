@@ -3,6 +3,7 @@ import home from '../../assets/styles/codesta/home.module.css';
 import { Text, Grid, useTheme, Link } from '@nextui-org/react';
 import { CgDesignmodo } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
+import dynamic from 'next/dynamic';
 
 const Footer = () => {
     const { isDark } = useTheme();
@@ -19,11 +20,11 @@ const Footer = () => {
                     </Text>
 
                     <Link
-                        href='https://www.linkedin.com/in/debkanta-pradhan-4b6399193/'
+                        href='https://www.debkantapradhan.me/'
                         target={'_blank'}
                         css={{ color: nameColor, fontStyle: 'italic', display: 'inline' }}
                     >
-                        @DK
+                        @Debkanta
                         <IconContext.Provider value={{ style: { marginLeft: 3, color: nameColor, display: 'inline' } }}>
                             <CgDesignmodo />
                         </IconContext.Provider>
@@ -34,4 +35,4 @@ const Footer = () => {
     )
 }
 
-export default Footer;
+export default dynamic(() => Promise.resolve(Footer), { ssr: false });
