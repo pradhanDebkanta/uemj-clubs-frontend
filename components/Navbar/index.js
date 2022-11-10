@@ -295,7 +295,7 @@ function Navbar() {
           />
         </Collapse>
       </Box >
-      <Spacer y={3}/>
+      <Spacer y={0.2}/>
     </>
   );
 }

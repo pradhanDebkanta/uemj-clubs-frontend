@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Codesta from '../../components/codesta';
+import { Spacer } from '@nextui-org/react';
 
 
 const index = () => {
@@ -12,6 +13,7 @@ const index = () => {
         <link rel="icon" href="/images/codestaBlack.png" />
       </Head>
       <div>
+        <Spacer y={3} />
         <Codesta />
       </div>
     </div>
