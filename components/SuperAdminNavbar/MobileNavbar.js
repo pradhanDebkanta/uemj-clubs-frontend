@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import NextLink from 'next/link';
 import { Navbar, Link, Dropdown } from '@nextui-org/react';
 import { useRouter } from 'next/router';
@@ -12,7 +12,7 @@ import { icons } from '../../utils/icon/newIcon';
 
 
 
-const MobileNavbar = () => {
+const MobileNavbar = ({ toggler }) => {
     const router = useRouter();
 
     const activeRoute = useCallback((route) => {
@@ -35,6 +35,7 @@ const MobileNavbar = () => {
 
     const handleDropdown = key => {
         console.log(key);
+        toggler(true)
         if (key === 'co_ordinator') {
             router.push('/super-admin/members/co-ordinators');
         }
@@ -158,7 +159,7 @@ const MobileNavbar = () => {
                                             },
 
                                         }}
-
+                                        onClick={() => toggler(true)}
                                     >
                                         {item.icon}
                                         {item.name}
@@ -174,4 +175,4 @@ const MobileNavbar = () => {
     )
 }
 
-export default MobileNavbar
+export default memo(MobileNavbar);

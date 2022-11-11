@@ -1,21 +1,25 @@
-import React, { useCallback, } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Navbar, Dropdown, } from '@nextui-org/react';
+import { Navbar, Dropdown, useTheme } from '@nextui-org/react';
 
-import { Layout } from './Layout';
+import { Layout } from '../AdminNavbar/Layout';
 import Logo from './Logo';
 import MobileNavbar from './MobileNavbar';
 import UserProfile from './UserProfile';
-import { useWindowSize } from '../../utils/customHooks/resizeObserver';
 import { icons } from '../../utils/icon/newIcon';
 import navCss from '../../assets/styles/superAdmin/adminNavbar.module.css';
 import NavItems from './NavItem';
+import throttle from '../../utils/customHooks/throttle';
+import dynamic from 'next/dynamic';
 
 
 const SANavbar = () => {
-    const windowSize = useWindowSize();
+    const [windowSize, setWindowSize] = useState(window?.innerWidth);
     const router = useRouter();
+    const toggleRef = useRef(null);
+    const [toggleOpen, setToggleOpen] = useState(false);
+    const { isDark } = useTheme();
 
     const activeRoute = useCallback((route) => {
         if (router.pathname.includes(route))
@@ -57,16 +61,35 @@ const SANavbar = () => {
         }
     }
 
+    const handleToggle = useCallback(flag => {
+        if (flag) {
+            toggleRef?.current?.click();
+        }
+    }, []);
+
+    const throttleWindowSize = throttle(() => {
+        // console.log('resize');
+        setWindowSize(window?.innerWidth);
+    }, 2000);
+
+    useEffect(() => {
+        if (window !== undefined) {
+            window?.addEventListener('resize', throttleWindowSize)
+        }
+    }, [])
 
     return (
         <>
-            <Layout>
+            <Layout toggler={toggleOpen}>
                 <Navbar
-                    shouldHideOnScroll={true}
-                    variant={'stricky'}
                     isCompact={windowSize <= 725}
+                    isBordered={isDark}
                 >
-                    <Navbar.Toggle showIn="xs" />
+                    <Navbar.Toggle
+                        showIn="xs"
+                        ref={toggleRef}
+                        onChange={(value) => setToggleOpen(value)}
+                    />
                     <Navbar.Brand
                         css={{
                             "@xs": {
@@ -168,11 +191,11 @@ const SANavbar = () => {
 
                     {/* for mobile navbar */}
 
-                    <MobileNavbar />
+                    <MobileNavbar toggler={handleToggle} />
                 </Navbar>
             </Layout>
         </>
     )
 }
 
-export default SANavbar
+export default dynamic(() => Promise.resolve(SANavbar), { ssr: false });

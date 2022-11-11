@@ -42,7 +42,6 @@ export const theme = extendTheme({ ...custom });
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const [activeRoute, setActiveRoute] = useState('')
 
   useEffect(() => {
     let mode = process.env.NODE_ENV;
@@ -52,21 +51,6 @@ function MyApp({ Component, pageProps }) {
     }
     console.warn = () => { }
   }, [])
-
-  useEffect(() => {
-    if (router) {
-      if (router?.asPath?.includes('/super-admin')) {
-        setActiveRoute('super-admin');
-      } else if (router?.asPath.includes('/admin')) {
-        setActiveRoute('admin');
-      } else {
-        setActiveRoute('user');
-      }
-    }
-
-  }, [router]);
-
-
 
   return (
     <NextThemesProvider
@@ -80,13 +64,15 @@ function MyApp({ Component, pageProps }) {
     >
       <NextUIProvider theme={theme}>
         <ChakraProvider >
-          {activeRoute === 'super-admin' ? (
-            <SANavbar />
-          ) : activeRoute === 'admin' ? (
-            <ANavbar />
-          ) : (
-            <Navbar />
-          )}
+          {
+            router?.asPath?.includes('/super-admin') ? (
+              <SANavbar />
+            ) : router?.asPath.includes('/admin') ? (
+              <ANavbar />
+            ) : (
+              <Navbar />
+            )
+          }
 
           <Component {...pageProps} />
         </ChakraProvider>
